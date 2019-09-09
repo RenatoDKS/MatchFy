@@ -41,7 +41,7 @@ export default class Config extends Component {
               </Left>
               <Body>  
                 <Text style={styles.text}>Adicionais</Text>
-                <Text style={styles.textNote} note>Faça login com Facebook e/ou Instagram para exportar suas melhores fotos.</Text>
+                <Text style={styles.textNote} note>Adicione suas melhores fotos a partir da sua galeria.</Text>
               </Body>
             </ListItem>
   

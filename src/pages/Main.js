@@ -9,6 +9,7 @@ import styles from '../styles/Main';
 const cards = [ 
   {
     name: 'Monica Geller',
+    sexo: 'feminino',
     idade: 20,
     image: require('../assets/monica.jpeg'),
     bio: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.orem Ipsum is simply dummy text of the printing and typesetting industry."
@@ -16,6 +17,7 @@ const cards = [
  
   {
     name: 'Rachel Green',
+    sexo: 'feminino',
     idade: 20,
     image: require('../assets/rachel.jpeg'),
     bio: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book."
@@ -23,12 +25,14 @@ const cards = [
 
   {
     name: 'Phoebe Buffay',
+    sexo: 'feminino',
     idade: 20,
     image: require('../assets/phoebe.jpeg'),
     bio: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book."
   },
 ];
 export default class Main extends Component {
+
   render() {
     return ( 
       <Container style={styles.container}>   

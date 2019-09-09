@@ -61,7 +61,8 @@ const mainNavigation = createMaterialTopTabNavigator(
 
  
   {
-    initialRouteName: "Main",
+    initialRouteName: "Main", 
+    swipeEnabled: false,
     tabBarComponent: SafeAreaMaterialTopTabBar, 
     tabBarOptions: {
       showIcon: true,

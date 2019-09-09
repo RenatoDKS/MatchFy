@@ -86,8 +86,8 @@ const styles = StyleSheet.create({
   buttonView:{
     flexDirection: "row",
     flex: 1, 
-    position: "absolute", 
-    bottom: "3%",  
+    top: hp('81%'),
+    position: "relative",  
     left: hp('0%'), 
     right: hp('0%'),  
     justifyContent: 'space-between', 
