@@ -12,6 +12,7 @@ import InterestScreen from './src/pages/Interest';
 import PoliticScreen from './src/pages/Politic';
 import AdditionalScreen from './src/pages/Additional';
 import ChatScreen from './src/pages/Chat';
+import InfoScreen from './src/pages/Info';
  
 const Stack = createAppContainer(
   createStackNavigator({
@@ -68,6 +69,13 @@ const Stack = createAppContainer(
       screen: ChatScreen,
       navigationOptions: {
         title: 'Chat(Conversas)',
+      }
+    },
+
+    Info: {
+      screen: InfoScreen,
+      navigationOptions: {
+        title: 'Informações'
       }
     },
 

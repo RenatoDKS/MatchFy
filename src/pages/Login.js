@@ -9,6 +9,7 @@ import SInfo from "react-native-sensitive-info";
 import RNRestart from "react-native-restart";
 
 import styles from "../styles/Login";
+import { Thumbnail } from "native-base";
 
 const auth0 = new Auth0({  
   domain: Config.AUTH0_DOMAIN,
@@ -105,6 +106,7 @@ export default class Login extends Component {
   };
 
   gotoAccount = data => {
+    console.log(data);
     this.setState({
       hasInitialized: true
     });
@@ -116,7 +118,7 @@ export default class Login extends Component {
           routeName: "TabNav",    
           params: {
             name: data.name,
-            picture: data.picture
+            picture: data.picture,
           }
         })
       ]

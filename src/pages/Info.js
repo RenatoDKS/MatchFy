@@ -1,36 +1,28 @@
 import React, { Component } from 'react'
 import { Text, View, TouchableOpacity, Image, TextInput } from 'react-native'
 import Icon from 'react-native-vector-icons/FontAwesome';
-import styles from '../styles/User';
+import styles from '../styles/Info';
+import cards from './Main';
 
-export default class User extends Component {
+export default class Info extends Component {
 
   static navigationOptions = {
-    title: 'User',
+    title: 'Info',
   };
  
 
   render() {
-
     const { navigation } = this.props;
     const name = navigation.getParam("name");
     const picture = navigation.getParam("picture");
-
+    <cards />
     return (
       <View style={styles.container}>
 
         <View style={styles.viewComponents}>
           
-        
-          <TouchableOpacity style={styles.config} onPress={() => navigation.navigate('Config')} >
-            <Icon name="gear" size={60} color="blue"/> 
-          </TouchableOpacity>
+          <Image style={styles.picture} source={require('../assets/monica.jpeg')} />
 
-          <Image style={styles.picture} source={{ uri: picture }} />
-
-          <TouchableOpacity style={styles.edit} onPress={() => navigation.navigate('Edit')}>
-            <Icon name="edit" size={60} color="blue"/> 
-          </TouchableOpacity>
           </View>
 
           <View style={styles.viewName}> 

@@ -24,16 +24,18 @@ export default class ChatList extends Component {
     this.setState({ loading: true });
 
     fetch(url)
-      .then(res => res.json())
+      .then(res => { console.log(res); res.json()})
       .then(res => {
+        console.log(res);
         this.setState({
           data: res.results,
           error: res.error || null,
           loading: false,
-        });
+        }); 
         this.arrayholder = res.results;
       })
       .catch(error => {
+        console.log(error);
         this.setState({ error, loading: false });
       });
   };

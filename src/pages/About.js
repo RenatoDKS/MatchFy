@@ -43,12 +43,7 @@ export default class About extends React.Component {
                    </ListItem>
                   </List>
 
-                  <TouchableOpacity
-                   style = {styles.button}
-                   onPress={this.buttonClickListener}
-                 >
-                   <Text style = {styles.textButton}> Deletar conta </Text>
-                 </TouchableOpacity>  
+            
           </View>
 
       </View>

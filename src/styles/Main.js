@@ -5,12 +5,14 @@ import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-nativ
 const styles = StyleSheet.create({
   container: {
     flex: 1, 
+    flexDirection: 'column',
+    justifyContent: 'space-between',
     backgroundColor: '#f5f5f5', 
   },
 
   cardsContainer:{
     elevation: 3, 
-    marginTop: '8%',  
+    marginTop: '4%',   
     alignSelf: 'stretch',
      maxHeight: 500,
      borderColor: '#DDD',
@@ -85,14 +87,12 @@ const styles = StyleSheet.create({
 
   buttonView:{
     flexDirection: "row",
-    flex: 1, 
-    top: hp('81%'),
     position: "relative",  
     left: hp('0%'), 
     right: hp('0%'),  
-    justifyContent: 'space-between', 
-    paddingBottom: hp('0.7%'),   
-  },
+    justifyContent: 'space-between',  
+    marginBottom: hp('5%'),
+    },
 
   infoIcon:{
     borderRadius: 35,  

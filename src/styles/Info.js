@@ -15,14 +15,15 @@ const styles = StyleSheet.create({
 
   viewComponents:{ 
     backgroundColor: "purple", 
-    height: hp('36%'),
+    height: hp('40%'),
     width: wp('100%'), 
     flexDirection: "row",
+    alignSelf: 'center',
+    justifyContent: 'center',
   },
 
   viewBio:{
     backgroundColor: 'purple',
-    
     width: wp('100%'),
   },
 
@@ -54,11 +55,10 @@ const styles = StyleSheet.create({
   },
 
   picture:{
-    width: wp('70%'), 
+    width: wp('80%'), 
     marginTop: hp('3%'), 
     borderRadius: hp('14%'), 
-    flex: 1, 
-
+    height: hp('38%'),
   },
 
   edit:{

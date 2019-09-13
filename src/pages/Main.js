@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Image, StatusBar, TouchableOpacity, Text } from 'react-native';
+import { Image, StatusBar, TouchableOpacity, Text, SafeAreaView } from 'react-native';
 import { Container, View, DeckSwiper, Card, CardItem} from 'native-base';  
 import Icon from 'react-native-vector-icons/AntDesign'; 
 import ViewPager from "@react-native-community/viewpager";
@@ -34,11 +34,13 @@ const cards = [
 export default class Main extends Component {
 
   render() {
+
+    const { navigation } = this.props;
     return ( 
-      <Container style={styles.container}>   
+      <View style={styles.container}>   
         <StatusBar backgroundColor='purple'/>
         
-        <View >
+        <View style={{}}>
           <DeckSwiper looping={false}
             ref={(c) => this._deckSwiper = c}
             dataSource={cards}  
@@ -52,12 +54,9 @@ export default class Main extends Component {
                 <CardItem cardBody style={styles.card}>   
                   <Image style={styles.imagem} source={item.image} />
                
-
-     
-
                     <CardItem style={styles.textos}> 
                       <Text style={styles.nome}>{item.name}</Text> 
-                        <TouchableOpacity style={styles.infoIcon}>
+                        <TouchableOpacity style={styles.infoIcon} onPress={() => navigation.navigate('Info')} >
                       <Icon name="info" size={30} /> 
                       </TouchableOpacity>
                       </CardItem>  
@@ -84,7 +83,7 @@ export default class Main extends Component {
           </TouchableOpacity>
 
         </View>
-      </Container>
+      </View> 
     );
   }
 }
