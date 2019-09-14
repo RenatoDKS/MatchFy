@@ -73,8 +73,8 @@ export default class Main extends Component {
           <TouchableOpacity style={styles.button} onPress={() => this._deckSwiper._root.swipeLeft()}>
             <Icon name="dislike1" size={40} color="red"/>        
           </TouchableOpacity> 
-
-          <TouchableOpacity style={styles.button}>
+ 
+          <TouchableOpacity style={styles.button} onPress={() => this._deckSwiper._root.swipeRight()}>
             <Icon name="heart" size={40} color="pink"/> 
           </TouchableOpacity>
  

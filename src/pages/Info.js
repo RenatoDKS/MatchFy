@@ -13,8 +13,6 @@ export default class Info extends Component {
 
   render() {
     const { navigation } = this.props;
-    const name = navigation.getParam("name");
-    const picture = navigation.getParam("picture");
     <cards />
     return (
       <View style={styles.container}>
@@ -26,7 +24,7 @@ export default class Info extends Component {
           </View>
 
           <View style={styles.viewName}> 
-            <Text style={styles.name} numberOfLines={1}>{name} </Text> 
+            <Text style={styles.name} numberOfLines={1}> Monica Geller </Text> 
           </View>
  
           <View style={styles.viewBio}> 

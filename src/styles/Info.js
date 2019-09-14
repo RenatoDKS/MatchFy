@@ -57,7 +57,7 @@ const styles = StyleSheet.create({
   picture:{
     width: wp('80%'), 
     marginTop: hp('3%'), 
-    borderRadius: hp('14%'), 
+    borderRadius: 200, 
     height: hp('38%'),
   },
 

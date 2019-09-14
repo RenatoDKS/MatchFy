@@ -15,14 +15,15 @@ const styles = StyleSheet.create({
 
   viewComponents:{ 
     backgroundColor: "purple", 
-    height: hp('36%'),
+    height: hp('40%'),
     width: wp('100%'), 
     flexDirection: "row",
+    alignSelf: 'center',
+    justifyContent: 'center',
   },
 
   viewBio:{
     backgroundColor: 'purple',
-    
     width: wp('100%'),
   },
 
@@ -54,11 +55,10 @@ const styles = StyleSheet.create({
   },
 
   picture:{
-    width: wp('70%'), 
-    marginTop: hp('3%'), 
-    borderRadius: 200,
-    flex: 1, 
-
+    width: wp('80%'), 
+    marginTop: hp('2%'), 
+    borderRadius: 200, 
+    height: hp('38%'),
   },
 
   edit:{
@@ -93,6 +93,26 @@ const styles = StyleSheet.create({
   avatar: {
     width: hp('11%'),
     height: hp('11%'),
+  },
+
+  button:{
+    marginTop: hp('34%'),
+    marginLeft: hp('-6%'),
+    height: hp('6%'), 
+    width: wp('11%'),     
+    borderRadius: 35,  
+    backgroundColor: '#FFF', 
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginHorizontal: 20,
+    elevation: 2,
+    shadowColor: '#000',
+    shadowOpacity: 0.05,
+    shadowRadius: 2,
+    shadowOffset:{
+      width: 0,
+      height: 2,
+    },
   },
 
 });
