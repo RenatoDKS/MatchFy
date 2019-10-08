@@ -19,6 +19,7 @@ view:{
 title:{
   textAlign: 'center', 
   fontSize: hp('10%'),
+  marginTop: '20%',
 },
 
 subtitle:{
@@ -29,8 +30,7 @@ subtitle:{
 
 type:{
   color:'black',
-  fontSize: hp('3%'),
-  fontWeight: "bold"
+  fontSize: hp('2.5%'),
 },
 
 description:{

@@ -1,7 +1,9 @@
 import React, { Component } from 'react'
-import { Text, View, TouchableOpacity, Image, TextInput } from 'react-native'
+import { Text, View, TouchableOpacity, Image, TextInput, StatusBar, ScrollView } from 'react-native'
 import Icon from 'react-native-vector-icons/FontAwesome';
 import styles from '../styles/Edit';
+
+import { Divider } from 'react-native-elements';
 
 export default class Edit extends Component {
 
@@ -13,65 +15,43 @@ export default class Edit extends Component {
   render() {
     const { navigation } = this.props;
     return (
+
       <View style={styles.container}>
+      <ScrollView>
+        <StatusBar backgroundColor='#f5f5f5'/>
 
-        <View style={styles.viewComponents}>
-          
-          <Image style={styles.picture} source={require('../assets/monica.jpeg')} />
-          
-          <TouchableOpacity style={styles.button} >
-            <Icon name="plus" size={25} color="red"/>        
-          </TouchableOpacity> 
-
-          </View>
-
-          <View style={styles.viewName}> 
-            <Text style={styles.name} numberOfLines={1}> Monica Geller </Text> 
-          </View>
- 
-          <View style={styles.viewBio}> 
-            <TextInput multiline maxLength={360} textAlignVertical='top'  style={styles.bio}>Programador Front-End no projeto do Ricardão.</TextInput>
-          </View>
-
-
-          <View style={styles.viewGalery}>
-
-          <TouchableOpacity>
-          <View
-            style={[styles.avatar, styles.avatarContainer, {marginBottom: 20}]}>
-
-              <Icon name="plus" size={60} color="black"/>  
-
-          </View>
-        </TouchableOpacity>
-
-        <TouchableOpacity>
-          <View
-            style={[styles.avatar, styles.avatarContainer, {marginBottom: 20}]}>
-            
-              <Icon name="plus" size={60} color="black"/>  
-          </View>
-        </TouchableOpacity> 
-
-        <TouchableOpacity>
-          <View
-            style={[styles.avatar, styles.avatarContainer, {marginBottom: 20}]}>
-
-              <Icon name="plus" size={60} color="black"/>  
-
-          </View>
-        </TouchableOpacity>
-
-        <TouchableOpacity>
-          <View
-            style={[styles.avatar, styles.avatarContainer, {marginBottom: 20}]}>
-            
-              <Icon name="plus" size={60} color="black"/>  
-          </View>
-        </TouchableOpacity> 
-
+        <View style={styles.photo}>
+          <Image source={require('../assets/monica.jpeg')} style={styles.img} />
+          <TouchableOpacity style={styles.icon}>
+          <Icon name="camera" size={40} color="gray"/>
+          </TouchableOpacity>
         </View>
 
+        <View style={styles.bio}>
+          <TextInput multiline={true} numberOfLines={5}>Digite sua bio</TextInput> 
+        </View>
+
+        <View style={styles.form}>
+              
+          <TextInput editable={false}> Nome</TextInput>
+          <Divider /> 
+          <TextInput editable={false}> Idade</TextInput> 
+          <Divider /> 
+          <TextInput > Genero</TextInput> 
+          <Divider /> 
+          <TextInput> Cidade</TextInput>
+          <Divider /> 
+         
+        </View>
+
+        <View style={styles.viewbtn}>
+        <TouchableOpacity style={styles.button} >
+            <Text style={styles.textbtn}> Salvar </Text>
+        </TouchableOpacity> 
+        </View>
+
+
+        </ScrollView>
       </View>
     )
   }

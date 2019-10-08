@@ -10,68 +10,48 @@ const styles = StyleSheet.create({
   },
 
   cardsContainer:{
-    elevation: 3, 
-    marginTop: '4%',   
-    alignSelf: 'stretch',
-     maxHeight: 500,
-     borderColor: '#DDD',
-    borderRadius: 8, 
-    backgroundColor:"yellow",
+    justifyContent: 'center',
+    alignSelf: 'center',
+    alignContent: 'center',
+    alignItems: 'center',
+    marginTop: '4.5%', 
+    marginLeft: '3.5%',
+    width: wp('92%'), 
+    borderRadius: 12, 
+    alignSelf: 'stretch', 
+    borderWidth: 0,
+    backgroundColor: '#f5f5f5',
+    borderColor: '#f5f5f5',
   },
 
   card:{
-    flex: 1,
-    height: hp('75%'),  
-    width: wp('100%'),
+    flex: 1, 
+    height: hp('85%'),  
+    width: wp('93%'), 
+    alignSelf: 'center',
+    justifyContent: 'center',
     flexDirection:'column',
-    width: "100%", 
-    borderWidth: 1, 
-    borderColor: '#DDD',
-    borderRadius: 8,   top: 0,
-    left: 0,
-    right: 0,
-    bottom: 0, 
+    borderRadius: 12, 
+    borderWidth: 0,
     overflow: 'hidden', 
   },
 
   textos:{
-    flexDirection: 'row',
     justifyContent: 'space-between',
     width: wp('100%'),
     height: hp('10%'),
-  },
-  cardTextos:{
-  
-    flexDirection: 'column',
-
-  },
-
-  cardNome:{
-    flexDirection: 'row',
+    justifyContent: 'center',
   },
 
   nome:{
 
-    fontSize: hp('5%'),
+    fontSize: hp('4%'),
     fontWeight: 'bold',
-    color: '#333', 
-    textAlign: "left",
-    
+    color: '#333',
   },
-
-  bio:{
-    fontSize: hp('2.5%'),
-    color: '#999',
-    marginTop: 5,
-    lineHeight: 18,
-    textAlign: "left",
-    paddingVertical: hp('1%'),
-    paddingHorizontal: hp('1%'),
-  },
-
 
   imagem:{
-    height: 350, 
+    height: 300, 
     width: wp('100%'),
     flex: 1,
   },
@@ -86,29 +66,16 @@ const styles = StyleSheet.create({
 
   buttonView:{
     flexDirection: "row",
-    position: "relative",  
-    left: hp('0%'), 
-    right: hp('0%'),  
+    position: "relative",   
     justifyContent: 'space-between',  
-    marginBottom: hp('5%'),
+    marginBottom: hp('3%'),
+    marginHorizontal: wp('10%'),
     },
 
-  infoIcon:{
-    borderRadius: 35,  
-    backgroundColor: 'yellow', 
-    shadowColor: '#000',
-    shadowOpacity: 0.05,
-    shadowRadius: 2,
-    shadowOffset:{
-      width: 0,
-      height: 2,
-    }
-  },
-
   button:{
-    height: hp('10%'), 
-    width: wp('20%'),    
-    borderRadius: 35,  
+    height: 60, 
+    width: 60,    
+    borderRadius: 30,  
     backgroundColor: '#FFF', 
     justifyContent: 'center',
     alignItems: 'center',

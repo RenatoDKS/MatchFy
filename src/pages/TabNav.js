@@ -13,7 +13,7 @@ import {
 import ChatList from '../pages/ChatList';
 import User from '../pages/User'
 import Main from '../pages/Main';
-import { hidden } from 'ansi-colors';
+import Config from '../pages/Config';
 
 
 
@@ -57,7 +57,18 @@ const mainNavigation = createMaterialTopTabNavigator(
         ),
       }),
     },
+
+    Config: {
+      screen: Config,
+      navigationOptions: () => ({ 
+        tabBarIcon: ({ focused }) => (
+          <Icon name="gear" size={25} color="white"/>   
+        ),
+      }),
+    },
 },
+
+
 
  
   {
@@ -68,7 +79,7 @@ const mainNavigation = createMaterialTopTabNavigator(
       showIcon: true,
       showLabel: false,
       tabStyle: {
-        backgroundColor: 'purple',   
+        backgroundColor: '#87d383',   
       },
     },
   },

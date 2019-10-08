@@ -38,35 +38,35 @@ export default class Main extends Component {
     const { navigation } = this.props;
     return ( 
       <View style={styles.container}>   
-        <StatusBar backgroundColor='purple'/>
+        <StatusBar backgroundColor='#87d383'/>
         
-        <View style={{}}>
+        <View >
           <DeckSwiper looping={false}
             ref={(c) => this._deckSwiper = c}
             dataSource={cards}  
+            
             renderEmpty={() => 
-              <View style={{ alignSelf: "center" }}>
+              <View style={{ alignSelf: "center", marginBottom: 8000,}}>
                 <Text style={styles.empty}>Acabou :( </Text>
               </View>
             } 
             renderItem={item => 
               <Card style={styles.cardsContainer}>   
-                <CardItem cardBody style={styles.card}>   
+                <CardItem cardBody style={styles.card}>
+                  <TouchableOpacity onPress={() => navigation.navigate('Info')} activeOpacity={1} style={{flex: 1}}> 
                   <Image style={styles.imagem} source={item.image} />
-               
+                  </TouchableOpacity>
                     <CardItem style={styles.textos}> 
                       <Text style={styles.nome}>{item.name}</Text> 
-                        <TouchableOpacity style={styles.infoIcon} onPress={() => navigation.navigate('Info')} >
-                      <Icon name="info" size={30} /> 
-                      </TouchableOpacity>
-                      </CardItem>  
-                  <Text numberOfLines={5} style={styles.bio}>{item.bio}</Text>
+                      </CardItem> 
 
                 </CardItem>
               </Card>
             }
           />
         </View>
+
+        
 
         <View style={styles.buttonView}>
 

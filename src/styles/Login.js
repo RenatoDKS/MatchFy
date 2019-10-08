@@ -1,39 +1,50 @@
 /* eslint-disable prettier/prettier */
 import { StyleSheet } from 'react-native';
+import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
 
 const styles = StyleSheet.create({
   view: {
     flex: 1,
-    justifyContent: 'center',
+    justifyContent: 'space-around',
     alignItems: 'center',
-    backgroundColor: 'purple',
   },
   button: {
-    top: 120,
-    paddingTop: 20,
-    paddingBottom: 20,
-    paddingLeft: 110,
-    paddingRight: 110,
-    borderRadius: 50,
-    backgroundColor: '#3b91cf',
-    alignSelf: 'center',
-    margin: 15,
-    marginHorizontal: 20,
+      height: 50, 
+      width: 350,
+      borderRadius: 15, 
+      backgroundColor: '#3A5A97',
+      justifyContent: 'center',
+  
+  },
+
+  textTitle:{
+    fontWeight: 'bold',
+    color: 'white',
+    fontSize: hp('12%'),
+    textAlign: 'center',
+    justifyContent: 'center'
   },
 
   text: {
-    fontWeight: 'bold',
     color: '#FFF',
     fontSize: 22,
     textAlign: 'center',
   },
-  textTitle: {
+  textsubTitle: {
     fontWeight: 'bold',
     color: 'white',
-    fontSize: 70,
+    fontSize: hp('5%'),
     textAlign: 'center',
-    top: -150,
+    justifyContent: 'center'
   },
+  textPolitic:{
+    textDecorationLine: 'underline',
+    color: 'white',
+    fontSize: hp('2.2%'),
+    textAlign: 'center',
+    justifyContent: 'center'
+  },
+
 });
 
 export default styles;

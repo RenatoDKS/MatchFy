@@ -98,12 +98,6 @@ export default class Interest extends React.Component {
                   </List>
           </View>
              <View style ={{flex: 1, backgroundColor:'white'}}>
-                   <TouchableOpacity
-                   style = {{alignItems: 'center', backgroundColor:'#fc1808', padding:10, borderRadius:100, marginTop:60, width : 150, marginLeft: 105}}
-                   onPress={this.buttonClickListener}
-                 >
-                   <Text style = {{color:'white'}}> Deletar conta </Text>
-                 </TouchableOpacity>
               </View>
       </ReactNativeSettingsPage>
       </View>

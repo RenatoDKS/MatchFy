@@ -1,15 +1,16 @@
 import React, { Component } from "react";
-import { View, Text, StatusBar, TouchableOpacity } from "react-native";
+import { View, Text, StatusBar, TouchableOpacity, Linking } from "react-native";
 import { NavigationActions, StackActions } from "react-navigation";
 import Auth0 from "react-native-auth0";
 import Config from "react-native-config";
-import DeviceInfo from "react-native-device-info";
+import DeviceInfo from "react-native-device-info"; 
 import SInfo from "react-native-sensitive-info";
-
+import LinearGradient from 'react-native-linear-gradient';
 import RNRestart from "react-native-restart";
-
 import styles from "../styles/Login";
-import { Thumbnail } from "native-base";
+import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
+
+
 
 const auth0 = new Auth0({  
   domain: Config.AUTH0_DOMAIN,
@@ -62,17 +63,25 @@ export default class Login extends Component {
   }
 
   render() {
+    const { navigation } = this.props;
     return (
-      <View style={styles.view} >
-         <StatusBar backgroundColor="purple"/> 
-       <Text style={styles.textTitle}> Matchfy </Text>
+      <LinearGradient colors={['#87d383', '#57b552', '#359830', '#1d7818', '#075b03']} style={{flex: 1}}>  
+       <StatusBar backgroundColor={'#87d383'}></StatusBar>
+      <View style={styles.view}> 
+
+        <Text style={styles.textTitle}>Matchfy</Text> 
+        
+        <Text style={styles.textsubTitle}>Seja bem-vindo</Text>
         
         {this.state.hasInitialized && (
-          <TouchableOpacity style={styles.button} onPress = {this.login}>
-            <Text style={styles.text}> Login </Text>
-        </TouchableOpacity>
+        <TouchableOpacity style={styles.button} onPress = {this.login}>
+            <Text style={styles.text}> Continue com Facebook </Text>
+        </TouchableOpacity> 
         )}
-      </View> 
+
+        <Text style={styles.textPolitic} onPress={() => Linking.openURL('http://ricardoramosdeoliveira.com.br/politica/politica_privacidade.html')}>Politica de privacidade</Text>
+      </View>
+    </LinearGradient>
     );
   }
 

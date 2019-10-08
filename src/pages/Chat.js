@@ -6,6 +6,11 @@ import Icon from 'react-native-vector-icons/AntDesign';
 
 
 export default class Chat extends Component {
+
+    static navigationOptions = {
+    title: 'Chat',
+  };
+
   state = {
     messages: [],
   };
