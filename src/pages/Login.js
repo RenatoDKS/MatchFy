@@ -8,6 +8,14 @@ import SInfo from "react-native-sensitive-info";
 import LinearGradient from 'react-native-linear-gradient';
 import RNRestart from "react-native-restart";
 import styles from "../styles/Login";
+
+import {
+  LoginButton,
+  AccessToken,
+  GraphRequest,
+  GraphRequestManager,
+} from 'react-native-fbsdk';
+
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
 
 
@@ -17,7 +25,38 @@ const auth0 = new Auth0({
   clientId: Config.AUTH0_CLIENT_ID
 });
 
+
+
 export default class Login extends Component {
+
+  constructor() {
+    super();
+    //Setting the state for the data after login
+    this.state = {
+      user_name: '',
+      token: '',
+      profile_pic: '',
+    };
+  }
+ 
+  get_Response_Info = (error, result) => {
+    if (error) {
+      //Alert for the Error
+      Alert.alert('Error fetching data: ' + error.toString());
+    } else {
+      //response alert
+      alert(JSON.stringify(result));
+      this.setState({ user_name: 'Welcome' + ' ' + result.name });
+      this.setState({ token: 'User Token: ' + ' ' + result.id });
+      this.setState({ profile_pic: result.picture.data.url });
+    }
+  };
+ 
+  onLogout = () => {
+    //Clear the state after logout
+    this.setState({ user_name: null, token: null, profile_pic: null });
+  };
+
   static navigationOptions = ({ navigation }) => {
     return {
       header:null  
@@ -72,6 +111,33 @@ export default class Login extends Component {
         <Text style={styles.textTitle}>Matchfy</Text> 
         
         <Text style={styles.textsubTitle}>Seja bem-vindo</Text>
+
+        <LoginButton
+          readPermissions={['public_profile']}
+          onLoginFinished={(error, result) => {
+            if (error) {
+              alert(error);
+              alert('login has error: ' + result.error);
+            } else if (result.isCancelled) {
+              alert('login is cancelled.');
+            } else {
+              AccessToken.getCurrentAccessToken().then(data => {
+                alert(data.accessToken.toString());
+
+                navigation.navigate('TabNav')
+ 
+                const processRequest = new GraphRequest(
+                  '/me?fields=name,picture.type(large)',
+                  null,
+                  this.get_Response_Info
+                );
+                // Start the graph request.
+                new GraphRequestManager().addRequest(processRequest).start();
+              });
+            }
+          }}
+          onLogoutFinished={this.onLogout}
+        />
         
         {this.state.hasInitialized && (
         <TouchableOpacity style={styles.button} onPress = {this.login}>
