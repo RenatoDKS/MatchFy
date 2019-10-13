@@ -3,15 +3,8 @@ import {TouchableOpacity} from 'react-native';
 import Icon from 'react-native-vector-icons/AntDesign'; 
 import { Container, Content, Button, List, ListItem, Text, Left, Body} from 'native-base';
 import styles from '../styles/Config';
-import Auth0 from "react-native-auth0";
-import Config from "react-native-config";
-import SInfo from "react-native-sensitive-info";
 import { NavigationActions, StackActions } from "react-navigation";
- 
-const auth0 = new Auth0({
-  domain: Config.AUTH0_DOMAIN,
-  clientId: Config.AUTH0_CLIENT_ID
-});
+
 
 
 export default class Configuration extends Component {
@@ -77,44 +70,11 @@ export default class Configuration extends Component {
           </List> 
         </Content>
 
-        <TouchableOpacity style={styles.button} onPress={this.logout} >
+        <TouchableOpacity style={styles.button} >
             <Text style={styles.textbtn} > Sair </Text> 
         </TouchableOpacity> 
 
       </Container> 
     );
   }
-
-  logout = () => {
-    console.log("logging out...");
-
-    SInfo.deleteItem("accessToken", {});
-    SInfo.deleteItem("refreshToken", {});
-
-    this.gotoLogin();
-
-    auth0.webAuth
-      .clearSession()
-      .then(res => {
-        console.log("clear session ok");
-        console.log(res);
-      })
-      .catch(err => {
-        console.log("error clearing session.");
-        console.log(err);
-      });
-  };
-
-  gotoLogin = () => {
-    const resetAction = StackActions.reset({
-      index: 0,
-      actions: [
-        NavigationActions.navigate({ 
-          routeName: "Login"
-        })
-      ]
-    }); 
-
-    this.props.navigation.dispatch(resetAction);
-  };
 }

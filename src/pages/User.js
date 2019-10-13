@@ -13,8 +13,6 @@ export default class User extends Component {
   render() {
 
     const { navigation } = this.props;
-    const name = navigation.getParam("name");
-    const picture = navigation.getParam("picture");
 
     return (
       <View style={styles.container}>
@@ -26,7 +24,7 @@ export default class User extends Component {
             <Icon name="gear" size={60} color="blue"/> 
           </TouchableOpacity>
 
-          <Image style={styles.picture} source={{ uri: picture }} />
+         
 
           <TouchableOpacity style={styles.edit} onPress={() => navigation.navigate('Edit')}>
             <Icon name="edit" size={60} color="blue"/> 
@@ -34,7 +32,7 @@ export default class User extends Component {
           </View>
 
           <View style={styles.viewName}> 
-            <Text style={styles.name} numberOfLines={1}>{name} </Text> 
+           
           </View>
  
           <View style={styles.viewBio}> 

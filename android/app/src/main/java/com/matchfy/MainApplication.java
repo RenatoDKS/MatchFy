@@ -7,12 +7,7 @@ import com.facebook.reactnative.androidsdk.FBSDKPackage;
 import com.BV.LinearGradient.LinearGradientPackage;
 import com.imagepicker.ImagePickerPackage;
 import com.oblador.vectoricons.VectorIconsPackage;
-import com.avishayil.rnrestart.ReactNativeRestartPackage;
-import com.lugg.ReactNativeConfig.ReactNativeConfigPackage;
-import br.com.classapp.RNSensitiveInfo.RNSensitiveInfoPackage;
-import com.learnium.RNDeviceInfo.RNDeviceInfo;
 import com.swmansion.gesturehandler.react.RNGestureHandlerPackage;
-import com.auth0.react.A0Auth0Package;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
 import com.facebook.react.shell.MainReactPackage;
@@ -45,12 +40,7 @@ return mCallbackManager;
             new LinearGradientPackage(),
             new ImagePickerPackage(),
             new VectorIconsPackage(),
-            new ReactNativeRestartPackage(),
-            new ReactNativeConfigPackage(),
-            new RNSensitiveInfoPackage(),
-            new RNDeviceInfo(),
             new RNGestureHandlerPackage(),
-            new A0Auth0Package(),
             new FBSDKPackage()
       );
     }
