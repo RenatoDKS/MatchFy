@@ -205,7 +205,6 @@ android {
 
 dependencies {
     implementation project(':react-native-linear-gradient')
-    implementation project(':react-native-image-picker')
     implementation 'com.facebook.android:facebook-android-sdk:[5,6)'
     implementation project(':react-native-fbsdk')
     

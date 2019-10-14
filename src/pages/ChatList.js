@@ -20,7 +20,7 @@ export default class ChatList extends Component {
   }
 
   makeRemoteRequest = () => {
-    const url = `https://randomuser.me/api/?&results=20`;
+    const url = `https://randomuser.me/api/?results=10`; 
     this.setState({ loading: true });
 
     fetch(url)
@@ -77,7 +77,7 @@ export default class ChatList extends Component {
         onChangeText={text => this.searchFilterFunction(text)}
         autoCorrect={false}
         value={this.state.value} 
-        inputContainerStyle={{backgroundColor:"white", borderWidth: 10, borderBottomWidth: 10, borderRadius: 50, borderColor: "purple"}} 
+        inputContainerStyle={{backgroundColor:"white", borderWidth: 0, borderRadius: 50}} 
         containerStyle={{backgroundColor:"white" }}
         /> 
     );

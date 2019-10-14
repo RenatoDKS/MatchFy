@@ -5,7 +5,6 @@ import android.content.Context;
 import com.facebook.react.ReactApplication;
 import com.facebook.reactnative.androidsdk.FBSDKPackage;
 import com.BV.LinearGradient.LinearGradientPackage;
-import com.imagepicker.ImagePickerPackage;
 import com.oblador.vectoricons.VectorIconsPackage;
 import com.swmansion.gesturehandler.react.RNGestureHandlerPackage;
 import com.facebook.react.ReactNativeHost;
@@ -38,7 +37,6 @@ return mCallbackManager;
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
             new LinearGradientPackage(),
-            new ImagePickerPackage(),
             new VectorIconsPackage(),
             new RNGestureHandlerPackage(),
             new FBSDKPackage()

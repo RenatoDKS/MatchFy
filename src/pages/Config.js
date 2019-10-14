@@ -37,16 +37,6 @@ export default class Configuration extends Component {
                 <Text style={styles.textNote} note>Defina seu gênero preferido, idade e distância máxima.</Text>
               </Body>
             </ListItem>
-
-            <ListItem avatar style={styles.listItem} onPress={() => navigation.navigate('Additional')} >
-              <Left>
-                <Icon name="upload" size={22} style={{marginTop: 20}} />
-              </Left>
-              <Body>  
-                <Text style={styles.text}>Adicionais</Text>
-                <Text style={styles.textNote} note>Adicione suas melhores fotos a partir da sua galeria.</Text>
-              </Body>
-            </ListItem>
   
             <ListItem avatar style={styles.listItem} onPress={() => navigation.navigate('Politic')} >
               <Left>

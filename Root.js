@@ -10,7 +10,6 @@ import EditScreen from './src/pages/Edit';
 import AboutScreen from './src/pages/About';
 import InterestScreen from './src/pages/Interest';
 import PoliticScreen from './src/pages/Politic';
-import AdditionalScreen from './src/pages/Additional';
 import ChatScreen from './src/pages/Chat';
 import InfoScreen from './src/pages/Info';
  
@@ -58,17 +57,11 @@ const Stack = createAppContainer(
       }
     },
 
-    Additional: {
-      screen: AdditionalScreen,
-      navigationOptions: {
-        title: 'Adicionais',
-      }
-    },
-
     Chat: {
       screen: ChatScreen,
       navigationOptions: {
         title: 'Chat(Conversas)',
+        header: null,
       }
     },
 
