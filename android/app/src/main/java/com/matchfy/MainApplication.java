@@ -1,26 +1,30 @@
 package com.matchfy;
 
 import android.app.Application;
-
+import android.content.Context;
 import com.facebook.react.ReactApplication;
+import com.facebook.reactnative.androidsdk.FBSDKPackage;
 import com.BV.LinearGradient.LinearGradientPackage;
-import com.imagepicker.ImagePickerPackage;
 import com.oblador.vectoricons.VectorIconsPackage;
-import com.avishayil.rnrestart.ReactNativeRestartPackage;
-import com.lugg.ReactNativeConfig.ReactNativeConfigPackage;
-import br.com.classapp.RNSensitiveInfo.RNSensitiveInfoPackage;
-import com.learnium.RNDeviceInfo.RNDeviceInfo;
 import com.swmansion.gesturehandler.react.RNGestureHandlerPackage;
-import com.auth0.react.A0Auth0Package;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
 import com.facebook.react.shell.MainReactPackage;
 import com.facebook.soloader.SoLoader;
+import com.facebook.FacebookSdk;
+import com.facebook.appevents.AppEventsLogger;
+import com.facebook.CallbackManager;
 
 import java.util.Arrays;
 import java.util.List;
 
 public class MainApplication extends Application implements ReactApplication {
+
+  private static CallbackManager mCallbackManager = 
+  CallbackManager.Factory.create();
+protected static CallbackManager getCallbackManager(){
+return mCallbackManager;
+}
 
   private final ReactNativeHost mReactNativeHost = new ReactNativeHost(this) {
     @Override
@@ -33,14 +37,9 @@ public class MainApplication extends Application implements ReactApplication {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
             new LinearGradientPackage(),
-            new ImagePickerPackage(),
             new VectorIconsPackage(),
-            new ReactNativeRestartPackage(),
-            new ReactNativeConfigPackage(),
-            new RNSensitiveInfoPackage(),
-            new RNDeviceInfo(),
             new RNGestureHandlerPackage(),
-            new A0Auth0Package()
+            new FBSDKPackage()
       );
     }
 

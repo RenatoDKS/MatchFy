@@ -29,8 +29,10 @@ const styles = StyleSheet.create({
   },
 
   viewbtn:{
-  
+      marginTop: -140,  
   },
+
+  
 
   button: {
     height: 50,  
@@ -40,7 +42,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignSelf: 'center',
     alignItems: 'center',
-    marginBottom: 100,
+    marginBottom: 50,
 },
 
 icon:{
@@ -63,6 +65,32 @@ icon:{
     justifyContent: 'center',
     alignSelf: 'center',
   },
+
+  item: {
+    height: 170,  
+    alignItems: "center",
+    backgroundColor: "#dcda48",
+    flexBasis: 0,
+    flexGrow: 1,
+    margin: 4,
+    padding: 20,
+    flex: 1,
+  },
+
+  foto:{
+    height: 170,
+    width: wp('45%'), 
+    margin: 10,
+    justifyContent: 'center',
+    alignSelf: 'center',
+  },
+
+  itemEmpty: {
+    backgroundColor: "transparent"
+  },
+  text: {
+    color: "#333333"
+  }
 
 });
 

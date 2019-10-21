@@ -1,11 +1,24 @@
 import React, { Component } from 'react'
-import { Text, View, TouchableOpacity, Image, TextInput, StatusBar, ScrollView } from 'react-native'
+import { Text, View, TouchableOpacity, Image, TextInput, StatusBar, ScrollView, FlatList, SafeAreaView} from 'react-native'
 import Icon from 'react-native-vector-icons/FontAwesome';
 import styles from '../styles/Edit';
 
+
 import { Divider } from 'react-native-elements';
 
-export default class Edit extends Component {
+export default class Edit extends Component {  
+
+
+  state = {
+    data: [
+      { id: "00", name: "Relâmpago McQueen" },
+      { id: "01", name: "Agente Tom Mate" },
+      { id: "02", name: "Doc Hudson" },
+      { id: "03", name: "Cruz Ramirez" },
+
+
+    ]
+  };
 
   static navigationOptions = {
     title: 'Edição de Perfil',
@@ -13,6 +26,7 @@ export default class Edit extends Component {
  
 
   render() {
+    const columns = 2;  
     const { navigation } = this.props;
     return (
 
@@ -37,12 +51,31 @@ export default class Edit extends Component {
           <Divider /> 
           <TextInput editable={false}> Idade</TextInput> 
           <Divider /> 
-          <TextInput > Genero</TextInput> 
+          <TextInput editable={false}> Genero</TextInput> 
           <Divider /> 
-          <TextInput> Cidade</TextInput>
+          <TextInput editable={false}> Cidade</TextInput>
           <Divider /> 
-         
+       
         </View>
+        
+        <SafeAreaView>  
+        <Text style={{fontSize: 20, marginBottom: 10, marginTop:10 }}>Escolha suas fotos</Text> 
+        <FlatList
+          data={createRows(this.state.data, columns)}
+          keyExtractor={item => item.id}
+          numColumns={columns}
+          renderItem={({ item }) => {
+            if (item.empty) {
+              return <View style={[styles.item, styles.itemEmpty]} />;
+            }
+            return (
+              
+                <Image source source={require('../assets/monica.jpeg')} style={styles.foto} /> 
+               
+            );
+          }}
+        />
+      </SafeAreaView>
 
         <View style={styles.viewbtn}>
         <TouchableOpacity style={styles.button} >
@@ -54,6 +87,24 @@ export default class Edit extends Component {
         </ScrollView>
       </View>
     )
+        }
+    }
+
+  function createRows(data, columns) {
+    const rows = Math.floor(data.length / columns);
+    let lastRowElements = data.length - rows * columns;
+  
+    while (lastRowElements !== columns) {
+      data.push({
+        id: `empty-${lastRowElements}`,
+        name: `empty-${lastRowElements}`,
+        empty: true
+      });
+      lastRowElements += 1;
+    }
+  
+    return data;
   }
-}
+
+
 
