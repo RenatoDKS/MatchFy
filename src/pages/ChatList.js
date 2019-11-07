@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, FlatList, ActivityIndicator } from 'react-native';
+import { View, FlatList, ActivityIndicator,  BackHandler } from 'react-native';
 import { ListItem, SearchBar } from 'react-native-elements';
 
 export default class ChatList extends Component {
@@ -18,6 +18,10 @@ export default class ChatList extends Component {
   componentDidMount() {
     this.makeRemoteRequest();
   }
+
+  componentWillMount() {
+    BackHandler.addEventListener('hardwareBackPress', () => { return true; });
+  } 
 
   makeRemoteRequest = () => {
     const url = `https://randomuser.me/api/?results=10`; 

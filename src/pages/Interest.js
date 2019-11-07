@@ -1,14 +1,6 @@
 import React from 'react';
-import {
-  View,
-  TouchableOpacity,
-  Text
-} from 'react-native';
-import ReactNativeSettingsPage, { 
-  NavigateRow,
-  SwitchRow, 
-  SectionRow
-} from 'react-native-settings-page';
+import { View, Text} from 'react-native';
+import ReactNativeSettingsPage, { SwitchRow, SectionRow} from 'react-native-settings-page';
 import Slider from 'react-native-slider';
 import {List, ListItem, Container, Content} from 'native-base';
 
@@ -18,10 +10,10 @@ export default class Interest extends React.Component {
    this.state = { idade: 18, dist: 0, idade1: 60 }
   } 
   getVal(value){
-  console.warn(value);
+  //console.warn(value);
   }     
   getDist(value1){
-    console.warn(value1);
+    //console.warn(value1);
   }
    buttonClickListener = () => {
     alert("Deseja realmente deletar sua conta?");
@@ -34,11 +26,8 @@ export default class Interest extends React.Component {
     value: 40,
     value1: 40,
     value2: 60
-  }
-  _navigateToScreen = () => {
-    const { navigation } = this.props
-    navigation.navigate('Your-Screen-Name');
-  }
+  } 
+ 
   render() {
     return (
       <Container>
@@ -66,7 +55,7 @@ export default class Interest extends React.Component {
                         minimumValue={0}
                         maximumValue={80}
                         minimumTrackTintColor="#000000"
-                        maximumTrackTintColor="#000000"
+                        maximumTrackTintColor="#000000" 
                         onValueChange={value1 => this.setState ({dist : value1})}
                         onSlidingComplete={(value1 => this.getDist(value1))}
                       /></Text>

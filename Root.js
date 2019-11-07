@@ -46,7 +46,7 @@ const Stack = createAppContainer(
     Interest: {
       screen: InterestScreen,
       navigationOptions: {
-        title: 'Interesses',
+        title: 'Preferências', 
       }
     },
 

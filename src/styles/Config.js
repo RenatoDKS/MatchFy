@@ -22,15 +22,10 @@ const styles = StyleSheet.create({
     color: 'white', 
   },
 
-  button: {
-    height: 50,  
-    width : 150, 
-    borderRadius: 75, 
-    backgroundColor: '#c90c0f',
-    justifyContent: 'center',
-    alignSelf: 'center',
-    alignItems: 'center',
-    marginBottom: 100,
+button:{
+
+alignSelf: 'center',
+marginBottom: hp('20%') 
 },
 
   textNote:{

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Image, StatusBar, TouchableOpacity, Text, SafeAreaView } from 'react-native';
+import { Image, StatusBar, TouchableOpacity, Text, SafeAreaView, BackHandler } from 'react-native';
 import { Container, View, DeckSwiper, Card, CardItem} from 'native-base';  
 import Icon from 'react-native-vector-icons/AntDesign'; 
 import ViewPager from "@react-native-community/viewpager";
@@ -33,6 +33,10 @@ const cards = [
 ];
 export default class Main extends Component {
 
+  componentWillMount() {
+    BackHandler.addEventListener('hardwareBackPress', () => { return true; });
+  }
+
   render() {
 
     const { navigation } = this.props;
@@ -40,13 +44,14 @@ export default class Main extends Component {
       <View style={styles.container}>   
         <StatusBar backgroundColor='#87d383'/>
         
-        <View >
-          <DeckSwiper looping={false}
+        <View style={{flex: 1}}>
+          <DeckSwiper
+           looping={false}
             ref={(c) => this._deckSwiper = c}
-            dataSource={cards}  
+            dataSource={cards}   
             
             renderEmpty={() => 
-              <View style={{ alignSelf: "center", marginBottom: 8000,}}>
+              <View style={{ alignSelf: "center", marginBottom: 8000}}>
                 <Text style={styles.empty}>Acabou :( </Text>
               </View>
             } 
@@ -66,7 +71,7 @@ export default class Main extends Component {
           />
         </View>
 
-        
+         
 
         <View style={styles.buttonView}>
 
