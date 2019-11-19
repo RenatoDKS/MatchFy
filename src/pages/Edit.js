@@ -4,6 +4,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import styles from '../styles/Edit';
 import { Divider } from 'react-native-elements';
 
+
 export default class Edit extends Component {  
 
   state = {
@@ -22,7 +23,7 @@ export default class Edit extends Component {
     title: 'Edição de Perfil',
   };
 
-  
+
 
   render() {
     const columns = 2;  
@@ -39,7 +40,8 @@ export default class Edit extends Component {
         <View style={styles.photo}>
           <Image source={{uri: this.props.navigation.getParam('foto')}} style={styles.img} />
           <TouchableOpacity style={styles.icon}>
-          <Icon name="camera" size={40} color="gray"/>
+          <Icon name="camera" size={40} color="gray" onPress={() => this.props.navigation.navigate('ImageSelect', {texto: text})}/>
+          
           </TouchableOpacity>
         </View>
 

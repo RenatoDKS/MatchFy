@@ -4,6 +4,7 @@ import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-nativ
 
 const styles = StyleSheet.create({
   view: {
+    marginVertical: '20%',
     flex: 1,
     justifyContent: 'flex-end',
     alignItems: 'center',
@@ -29,15 +30,14 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     justifyContent: 'center'
   },
-  
+   
   textPolitic:{
+    marginTop: '20%',
     textDecorationLine: 'underline',
     color: '#9C9B9B', 
     fontSize: hp('2.2%'),
     textAlign: 'center',
-    justifyContent: 'center',
-    marginBottom: 40,
-    marginTop: 160,   
+    justifyContent: 'center',  
   }, 
 
 });

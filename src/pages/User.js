@@ -2,10 +2,10 @@ import React, { Component } from 'react'
 import { Text, View, TouchableOpacity, Image, TextInput, StatusBar, ScrollView, FlatList, SafeAreaView,  BackHandler} from 'react-native'
 import Icon from 'react-native-vector-icons/FontAwesome';
 import styles from '../styles/User';
-
+import Lightbox from 'react-native-lightbox';
 
 import { Divider } from 'react-native-elements';
-
+import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
 export default class User extends Component {   
 
   componentWillMount() {
@@ -25,12 +25,15 @@ export default class User extends Component {
   static navigationOptions = {
     title: 'Edição de Perfil',
   };
- 
-
+  
   render() {
     const columns = 2;  
     const { navigation } = this.props;
     const bio = this.props.navigation.getParam('texto'); 
+
+    const renderPhoto = () =>(
+      <Image resizeMode='contain' source={require('../assets/monica.jpeg')} style={{height: '100%', width: '100%', alignSelf: 'center'}}/>
+    )
     return (
 
       <View style={styles.container}>
@@ -38,7 +41,9 @@ export default class User extends Component {
         <StatusBar backgroundColor='#f5f5f5'/>
 
         <View style={styles.photo}>
+        <Lightbox underlayColor="#f5f5f5">
           <Image source={{uri: this.props.navigation.state.params.foto}} style={styles.img} />
+        </Lightbox>
         </View>
 
         <View style={styles.form}>
@@ -63,9 +68,9 @@ export default class User extends Component {
               return <View style={[styles.item, styles.itemEmpty]} />;
             }
             return (
-              
-                <Image source source={require('../assets/monica.jpeg')} style={styles.foto} /> 
-               
+              <Lightbox underlayColor="white" renderContent={renderPhoto}>
+                <Image source={require('../assets/monica.jpeg')} style={styles.foto} /> 
+              </Lightbox> 
             );
           }}
         />
@@ -91,6 +96,7 @@ export default class User extends Component {
   
     return data;
   }
+
 
 
 

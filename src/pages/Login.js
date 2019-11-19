@@ -84,7 +84,7 @@ export default class Login extends Component {
   render() {
     
     return (
-    <ImageBackground source={require('../assets/LogoTxt.png')} style={{width: '100%', height: '100%'}}> 
+    <ImageBackground resizeMode='stretch' source={require('../assets/LogoTxt.png')} style={{width: '100%', height: '100%', justifyContent:'center'}}>
        <StatusBar backgroundColor={'white'}></StatusBar> 
       
       <View style={styles.view}>   
