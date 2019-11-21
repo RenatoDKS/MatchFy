@@ -31,6 +31,8 @@ target 'Matchfy' do
 
   pod 'rn-range-slider', :path => '../node_modules/rn-range-slider'
 
+  pod 'react-native-geolocation', :path => '../node_modules/@react-native-community/geolocation'
+
   target 'MatchfyTests' do
     inherit! :search_paths
     # Pods for testing

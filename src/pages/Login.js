@@ -84,13 +84,13 @@ export default class Login extends Component {
   render() {
     
     return (
-    <ImageBackground resizeMode='stretch' source={require('../assets/LogoTxt.png')} style={{width: '100%', height: '100%', justifyContent:'center'}}>
+    <ImageBackground source={require('../assets/LogoTxt.png')} style={{ flex: 1 }}>
        <StatusBar backgroundColor={'white'}></StatusBar> 
       
       <View style={styles.view}>   
 
       <LoginButton
-       style={{height: 32, width: 240, backgroundColor: '#00B748'}}   
+       style={styles.button}
           publishPermissions={["publish_actions"]}
           onLoginFinished={
             (error, result) => {

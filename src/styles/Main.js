@@ -10,7 +10,7 @@ const styles = StyleSheet.create({
   },
 
   cardsContainer:{
-    height: hp('72%'),
+    flex: 1,
     justifyContent: 'center', 
     alignSelf: 'center',
     alignContent: 'center',
@@ -51,7 +51,7 @@ const styles = StyleSheet.create({
   },
 
   imagem:{
-    height: 300, 
+    height: hp('60%'), 
     width: wp('100%'),
     flex: 1,
   },

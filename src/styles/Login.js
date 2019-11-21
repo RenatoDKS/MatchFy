@@ -4,11 +4,17 @@ import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-nativ
 
 const styles = StyleSheet.create({
   view: {
-    marginVertical: '20%',
     flex: 1,
     justifyContent: 'flex-end',
     alignItems: 'center',
   }, 
+
+  button: {
+    height: 32, 
+    width: 240, 
+    backgroundColor: '#00B748', 
+    marginBottom: hp('10%'),
+  },
 
   textTitle:{
     fontWeight: 'bold',
@@ -32,12 +38,12 @@ const styles = StyleSheet.create({
   },
    
   textPolitic:{
-    marginTop: '20%',
     textDecorationLine: 'underline',
     color: '#9C9B9B', 
     fontSize: hp('2.2%'),
     textAlign: 'center',
-    justifyContent: 'center',  
+    justifyContent: 'center',
+    marginBottom: hp('10%'),  
   }, 
 
 });

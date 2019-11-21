@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import { Image, StatusBar, TouchableOpacity, Text, SafeAreaView, BackHandler } from 'react-native';
+import { Image, StatusBar, TouchableOpacity, Text, SafeAreaView, BackHandler, Alert } from 'react-native';
 import { Container, View, DeckSwiper, Card, CardItem} from 'native-base';  
 import Icon from 'react-native-vector-icons/AntDesign'; 
-import ViewPager from "@react-native-community/viewpager";
+import Geolocation from '@react-native-community/geolocation';
 
 
 import styles from '../styles/Main';
@@ -32,6 +32,33 @@ const cards = [
   },
 ];
 export default class Main extends Component {
+
+  state = {
+    latitude: '',
+    longitude: '',
+  };
+
+  watchID = null;
+
+  componentDidMount() {
+    Geolocation.getCurrentPosition(
+      position => {
+        const latitude = JSON.stringify(position.coords.latitude);
+        const longitude = JSON.stringify(position.coords.longitude);
+        this.setState({latitude});
+        this.setState({longitude});
+        console.log(latitude);
+        console.log(longitude);
+        
+      },
+      error => console.log('Error', JSON.stringify(error.message)),
+      {enableHighAccuracy: true, timeout: 20000, maximumAge: 1000},
+    );
+  }
+
+  componentWillUnmount() {
+    this.watchID != null && Geolocation.clearWatch(this.watchID);
+  }
 
   componentWillMount() {
     BackHandler.addEventListener('hardwareBackPress', () => { return true; });
@@ -72,7 +99,6 @@ export default class Main extends Component {
         </View>
 
          
-
         <View style={styles.buttonView}>
 
           <TouchableOpacity style={styles.button} onPress={() => this._deckSwiper._root.swipeLeft()}>

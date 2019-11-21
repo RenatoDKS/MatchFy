@@ -3,6 +3,7 @@ package com.matchfy;
 import android.app.Application;
 import android.content.Context;
 import com.facebook.react.ReactApplication;
+import com.reactnativecommunity.geolocation.GeolocationPackage;
 import com.ashideas.rnrangeslider.RangeSliderPackage;
 import com.facebook.reactnative.androidsdk.FBSDKPackage;
 import com.oblador.vectoricons.VectorIconsPackage;
@@ -36,6 +37,7 @@ return mCallbackManager;
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+            new GeolocationPackage(),
             new RangeSliderPackage(),
             new VectorIconsPackage(),
             new RNGestureHandlerPackage(),
