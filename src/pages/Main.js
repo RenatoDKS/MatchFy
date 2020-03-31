@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
-import { Image, StatusBar, TouchableOpacity, Text, SafeAreaView } from 'react-native';
+import { Image, StatusBar, TouchableOpacity, Text, SafeAreaView, BackHandler, Alert } from 'react-native';
 import { Container, View, DeckSwiper, Card, CardItem} from 'native-base';  
 import Icon from 'react-native-vector-icons/AntDesign'; 
-import ViewPager from "@react-native-community/viewpager";
-import Axios from "axios";
+import Geolocation from '@react-native-community/geolocation';
 
 const axios = Axios.create({ baseURL : "http://10.0.2.2:1337/v1" });
 
@@ -37,57 +36,36 @@ const cards = [
 
 export default class Main extends Component {
 
-  like = () => {
+  state = {
+    latitude: '',
+    longitude: '',
+  };
 
-    console.log("Like");
+  watchID = null;
 
-    axios.post("/like",{ data : {
-      user : { id : 34 },
-      target : { id : 35 }
-    }})
-    .then( res => {
-
-      if( res.data.match == true ) alert("Match!!");
-      if( res.data.like == true ) this._deckSwiper._root.swipeRight();
-
-    })
-    .catch( error => console.log(error) );
+  componentDidMount() {
+    Geolocation.getCurrentPosition(
+      position => {
+        const latitude = JSON.stringify(position.coords.latitude);
+        const longitude = JSON.stringify(position.coords.longitude);
+        this.setState({latitude});
+        this.setState({longitude});
+        console.log(latitude);
+        console.log(longitude);
+        
+      },
+      error => console.log('Error', JSON.stringify(error.message)),
+      {enableHighAccuracy: true, timeout: 20000, maximumAge: 1000},
+    );
   }
 
-  superLike = () => {
-
-    console.log("SuperLike");
-
-    axios.post("/superLike",{ data : {
-      user : { id : 35 },
-      target : { id : 34 }
-    }})
-    .then( res => {
-
-      if( res.data.match == true ) alert("Match!!");
-      if( res.data.like == true ) this._deckSwiper._root.swipeRight();
-      
-    })
-    .catch( error => console.log(error) );
+  componentWillUnmount() {
+    this.watchID != null && Geolocation.clearWatch(this.watchID);
   }
 
-  deslike = () => {
-
-    console.log("Deslike");
-
-    axios.post("/deslike",{ data : {
-      user : { id : 35 },
-      target : { id : 34 }
-    }})
-    .then( res => {
-
-      if( res.data.deslike == true ) this._deckSwiper._root.swipeLeft();
-      
-    })
-    .catch( error => console.log(error) );
+  componentWillMount() {
+    BackHandler.addEventListener('hardwareBackPress', () => { return true; });
   }
-
-
 
   render() {
 
@@ -96,13 +74,14 @@ export default class Main extends Component {
       <View style={styles.container}>   
         <StatusBar backgroundColor='#87d383'/>
         
-        <View >
-          <DeckSwiper looping={false}
+        <View style={{flex: 1}}>
+          <DeckSwiper
+           looping={false}
             ref={(c) => this._deckSwiper = c}
-            dataSource={cards}  
+            dataSource={cards}   
             
             renderEmpty={() => 
-              <View style={{ alignSelf: "center", marginBottom: 8000,}}>
+              <View style={{ alignSelf: "center", marginBottom: 8000}}>
                 <Text style={styles.empty}>Acabou :( </Text>
               </View>
             } 
@@ -121,8 +100,8 @@ export default class Main extends Component {
             }
           />
         </View>
-        
 
+         
         <View style={styles.buttonView}>
 
           <TouchableOpacity style={styles.button} onPress={ this.deslike }>

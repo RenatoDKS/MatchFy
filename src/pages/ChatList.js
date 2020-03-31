@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, FlatList, ActivityIndicator } from 'react-native';
+import { View, FlatList, ActivityIndicator,  BackHandler } from 'react-native';
 import { ListItem, SearchBar } from 'react-native-elements';
 import Axios from "axios";
 
@@ -20,6 +20,10 @@ export default class ChatList extends Component {
     console.log("ChatList");
     this.makeRemoteRequest();
   }
+
+  componentWillMount() {
+    BackHandler.addEventListener('hardwareBackPress', () => { return true; });
+  } 
 
   makeRemoteRequest = () => {
     const url = `http://10.0.2.2:1337/v1/match`; 

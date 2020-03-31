@@ -1,22 +1,48 @@
 import React, { Component } from 'react';
-import {TouchableOpacity} from 'react-native';
+import {View,  BackHandler} from 'react-native';
 import Icon from 'react-native-vector-icons/AntDesign'; 
 import { Container, Content, Button, List, ListItem, Text, Left, Body} from 'native-base';
 import styles from '../styles/Config';
-import { NavigationActions, StackActions } from "react-navigation";
+import { StackActions, NavigationActions } from 'react-navigation';
+import {
+  LoginButton, 
+  AccessToken,
+  GraphRequest,
+  GraphRequestManager,
+} from 'react-native-fbsdk';
+
+onLogout = () => {
+  //Clear the state after logout
+  this.props.navigation.navigate('Login')
+};
+
+
 
 
 
 export default class Configuration extends Component {
+
+
+  componentWillMount() {
+    BackHandler.addEventListener('hardwareBackPress', () => { return true; });
+  }
+
+  
+
   render() {
     const { navigation } = this.props;
+    const name = this.props.navigation.getParam('nome');
+    const photo = this.props.navigation.getParam('foto');
     return ( 
       <Container>
         
         <Content>
           <List style={styles.list}>  
 
-            <ListItem avatar style={styles.listItem} onPress={() => navigation.navigate('Chat')}>  
+            <ListItem avatar style={styles.listItem} onPress={() => this.props.navigation.navigate('Edit', {
+              nome: name,
+              foto: photo,
+            })}>   
               <Left> 
                 <Icon name="user" size={22} color="black" style={{marginTop: 20}} />
               </Left>
@@ -33,7 +59,7 @@ export default class Configuration extends Component {
                </Button>
               </Left>
               <Body>
-                  <Text style={styles.text}>Interesses</Text>
+                  <Text style={styles.text}>Preferências</Text>
                 <Text style={styles.textNote} note>Defina seu gênero preferido, idade e distância máxima.</Text>
               </Body>
             </ListItem>
@@ -59,11 +85,10 @@ export default class Configuration extends Component {
             </ListItem>
           </List> 
         </Content>
-
-        <TouchableOpacity style={styles.button} >
-            <Text style={styles.textbtn} > Sair </Text> 
-        </TouchableOpacity> 
-
+        
+        <View style={styles.button}> 
+        <LoginButton style={{height: 32, width: 240, backgroundColor: '#00B748'}}/>
+        </View>
       </Container> 
     );
   }

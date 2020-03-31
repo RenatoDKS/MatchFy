@@ -38,24 +38,27 @@ export default class Chat extends Component {
   render() {
     const { navigation } = this.props;
     return (
-      <Container style={{ flex: 1 }}>
-        <StatusBar color='white'/>
-        <Header>
+     
+      <Container style={{ flex: 1 }}> 
+      <StatusBar backgroundColor='white' barStyle = 'light-content' />  
+        <Header style={{backgroundColor: 'white'}}> 
           <Left>
             <Button transparent>
               <Icon name='arrow-left' size={20} onPress={() => navigation.navigate('ChatList')} />
             </Button>
           </Left>
           <Body>
-            <Title>Ricardão</Title>
+            <Title style={{color: 'black'}}>Ricardão</Title>  
           </Body>
           <Right>
             <Button transparent>
-              <Icon name='info' size={20} onPress={() => navigation.navigate('ChatList')}/> 
+              <Icon name='info' size={20} onPress={() => navigation.navigate('Info')}/> 
             </Button>
           </Right>
         </Header>
+         
         <View style={{ flex: 1 }}>
+        <StatusBar backgroundColor='white' barStyle = 'light-content' /> 
           <GiftedChat
             messages={this.state.messages}
             onSend={messages => this.onSend(messages)}

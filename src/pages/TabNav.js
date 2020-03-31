@@ -19,7 +19,9 @@ import Config from '../pages/Config';
 
 function SafeAreaMaterialTopTabBar(props) {
 
+
   return (
+    
     <View>
       <MaterialTopTabBar {...props} /> 
     </View>

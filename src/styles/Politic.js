@@ -4,16 +4,25 @@ import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-nativ
 const styles = StyleSheet.create({
 
     view: {
-        flex:1, flexDirection: "column", backgroundColor:'white'
+        flex:1, 
+        flexDirection: "column", 
+        backgroundColor:'white'
     },
     text1: {
-        color:'black', marginLeft:hp('2%'), fontSize: hp('3%'), fontWeight: 'bold'
+     fontSize: hp('3%'), 
+     textAlign: 'center',
+     marginTop: hp('2%'),
+     marginBottom: hp('2%'),
     },
     text2: {
-        textAlign: "justify", fontSize:hp('3%'), marginLeft:hp('4%'), marginRight:hp('4%')
+        textAlign: "justify", 
+        fontSize:hp('2.5%'),
+        marginHorizontal: wp('2%')
     },
     text3: {
-        color: 'blue', fontSize:hp('3%'), marginLeft:hp('4%')
+        color: 'blue', 
+        fontSize:hp('2.5%'),   
+        marginHorizontal: wp('2%')
     },
 
 
