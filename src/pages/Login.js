@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { View, Text, StatusBar, TouchableOpacity, Linking } from "react-native";
+import { View, Text, StatusBar, Button, Linking } from "react-native";
 import { NavigationActions, StackActions } from "react-navigation";
 import LinearGradient from 'react-native-linear-gradient';
 import styles from "../styles/Login";
@@ -55,6 +55,12 @@ export default class Login extends Component {
     hasInitialized: false
   };
 
+  componentDidMount(){
+    const { navigation } = this.props;
+    AccessToken.getCurrentAccessToken().then(data => {
+      if(data != null) navigation.navigate('TabNav')
+    });
+  }
  
   render() {
     const { navigation } = this.props;
@@ -66,7 +72,7 @@ export default class Login extends Component {
         <Text style={styles.textTitle}>Matchfy</Text> 
         
         <Text style={styles.textsubTitle}>Seja bem-vindo</Text>
-
+        {/* <Button title="aq" onPress={()=>navigation.navigate('TabNav')}/> */}
         <LoginButton
           readPermissions={['public_profile']}
           onLoginFinished={(error, result) => {
@@ -80,7 +86,7 @@ export default class Login extends Component {
                 alert(data.accessToken.toString());
 
                 navigation.navigate('TabNav')
-              }); 
+              });
             }
           }}
           onLogoutFinished={this.onLogout} 

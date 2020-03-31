@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { View, FlatList, ActivityIndicator } from 'react-native';
 import { ListItem, SearchBar } from 'react-native-elements';
+import Axios from "axios";
 
 export default class ChatList extends Component {
   constructor(props) {
@@ -16,14 +17,29 @@ export default class ChatList extends Component {
   }
 
   componentDidMount() {
+    console.log("ChatList");
     this.makeRemoteRequest();
   }
 
   makeRemoteRequest = () => {
-    const url = `https://randomuser.me/api/?results=10`; 
+    const url = `http://10.0.2.2:1337/v1/match`; 
     this.setState({ loading: true });
 
-    fetch(url)
+    Axios.get(url, { params : { id : 34 } })
+    .then(res => { 
+      console.log(res.data.results);
+        this.setState({
+          data: res.data.results,
+          error: null,
+          loading: false,
+        }); 
+
+    })
+    .catch(error => {
+        console.log(error);
+        this.setState({ error, loading: false });
+    })
+    /* fetch(url)
       .then(res => { console.log(res); res.json()})
       .then(res => {
         console.log(res);
@@ -37,7 +53,7 @@ export default class ChatList extends Component {
       .catch(error => {
         console.log(error);
         this.setState({ error, loading: false });
-      });
+      }); */
   };
 
   renderSeparator = () => {
@@ -45,9 +61,9 @@ export default class ChatList extends Component {
       <View
         style={{
           height: 1,
-          width: '86%',
-          backgroundColor: '#CED0CE',
-          marginLeft: '14%',
+          width: '70%',
+          backgroundColor: '#000',
+          marginLeft: '18%'
         }}
       />
     );
@@ -59,7 +75,7 @@ export default class ChatList extends Component {
     });
 
     const newData = this.arrayholder.filter(item => {
-      const itemData = `${item.name.title.toUpperCase()} ${item.name.first.toUpperCase()} ${item.name.last.toUpperCase()}`;
+      const itemData = `${item.nome.toUpperCase()}`;
       const textData = text.toUpperCase();
 
       return itemData.indexOf(textData) > -1;
@@ -98,8 +114,8 @@ export default class ChatList extends Component {
           data={this.state.data}
           renderItem={({ item }) => (
             <ListItem
-              leftAvatar={{ source: { uri: item.picture.thumbnail } }}
-              title={`${item.name.first} ${item.name.last}`}
+              leftAvatar={item.picture}
+              title={item.nome}
               subtitle={item.email}
               onPress={() => navigation.navigate('Chat')}
             />

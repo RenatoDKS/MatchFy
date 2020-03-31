@@ -3,7 +3,9 @@ import { Image, StatusBar, TouchableOpacity, Text, SafeAreaView } from 'react-na
 import { Container, View, DeckSwiper, Card, CardItem} from 'native-base';  
 import Icon from 'react-native-vector-icons/AntDesign'; 
 import ViewPager from "@react-native-community/viewpager";
+import Axios from "axios";
 
+const axios = Axios.create({ baseURL : "http://10.0.2.2:1337/v1" });
 
 import styles from '../styles/Main';
 const cards = [ 
@@ -31,7 +33,61 @@ const cards = [
     bio: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book."
   },
 ];
+
+
 export default class Main extends Component {
+
+  like = () => {
+
+    console.log("Like");
+
+    axios.post("/like",{ data : {
+      user : { id : 34 },
+      target : { id : 35 }
+    }})
+    .then( res => {
+
+      if( res.data.match == true ) alert("Match!!");
+      if( res.data.like == true ) this._deckSwiper._root.swipeRight();
+
+    })
+    .catch( error => console.log(error) );
+  }
+
+  superLike = () => {
+
+    console.log("SuperLike");
+
+    axios.post("/superLike",{ data : {
+      user : { id : 35 },
+      target : { id : 34 }
+    }})
+    .then( res => {
+
+      if( res.data.match == true ) alert("Match!!");
+      if( res.data.like == true ) this._deckSwiper._root.swipeRight();
+      
+    })
+    .catch( error => console.log(error) );
+  }
+
+  deslike = () => {
+
+    console.log("Deslike");
+
+    axios.post("/deslike",{ data : {
+      user : { id : 35 },
+      target : { id : 34 }
+    }})
+    .then( res => {
+
+      if( res.data.deslike == true ) this._deckSwiper._root.swipeLeft();
+      
+    })
+    .catch( error => console.log(error) );
+  }
+
+
 
   render() {
 
@@ -65,20 +121,19 @@ export default class Main extends Component {
             }
           />
         </View>
-
         
 
         <View style={styles.buttonView}>
 
-          <TouchableOpacity style={styles.button} onPress={() => this._deckSwiper._root.swipeLeft()}>
+          <TouchableOpacity style={styles.button} onPress={ this.deslike }>
             <Icon name="dislike1" size={40} color="red"/>        
           </TouchableOpacity> 
  
-          <TouchableOpacity style={styles.button} onPress={() => this._deckSwiper._root.swipeRight()}>
+          <TouchableOpacity style={styles.button} onPress={ this.superLike }>
             <Icon name="heart" size={40} color="pink"/> 
           </TouchableOpacity>
  
-          <TouchableOpacity style={styles.button} onPress={() => this._deckSwiper._root.swipeRight()}>
+          <TouchableOpacity style={styles.button} onPress={ this.like }>
             <Icon name="like1" size={40} color="green"/>
           </TouchableOpacity>
 
