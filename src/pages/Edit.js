@@ -1,13 +1,11 @@
 import React, { Component } from 'react'
-import { Text, View, TouchableOpacity, Image, TextInput, StatusBar, ScrollView, FlatList, SafeAreaView} from 'react-native'
+import { Text, View, TouchableOpacity, Image, TextInput, StatusBar, ScrollView, FlatList, SafeAreaView,  BackHandler} from 'react-native'
 import Icon from 'react-native-vector-icons/FontAwesome';
 import styles from '../styles/Edit';
-
-
 import { Divider } from 'react-native-elements';
 
-export default class Edit extends Component {  
 
+export default class Edit extends Component {  
 
   state = {
     data: [
@@ -17,37 +15,44 @@ export default class Edit extends Component {
       { id: "03", name: "Cruz Ramirez" },
 
 
-    ]
+    ],
+    
   };
 
   static navigationOptions = {
     title: 'Edição de Perfil',
   };
- 
+
+
 
   render() {
     const columns = 2;  
     const { navigation } = this.props;
+    const nome = this.props.navigation.getParam('nome'); 
+    const text = 'Digite sua bio';
+
     return (
 
       <View style={styles.container}>
       <ScrollView>
-        <StatusBar backgroundColor='#f5f5f5'/>
+        <StatusBar backgroundColor='#f5f5f5'/> 
 
         <View style={styles.photo}>
-          <Image source={require('../assets/monica.jpeg')} style={styles.img} />
+          <Image source={{uri: this.props.navigation.getParam('foto')}} style={styles.img} />
           <TouchableOpacity style={styles.icon}>
-          <Icon name="camera" size={40} color="gray"/>
+          <Icon name="camera" size={40} color="gray" onPress={() => this.props.navigation.navigate('ImageSelect', {texto: text})}/>
+          
           </TouchableOpacity>
         </View>
 
         <View style={styles.bio}>
-          <TextInput multiline={true} numberOfLines={5}>Digite sua bio</TextInput> 
+          <TextInput defaultValue={'Digite sua Bio'} onChangeText={(text) => this.setState({ text })}
+           value={this.state.text} multiline={true} numberOfLines={5} />
         </View>
 
         <View style={styles.form}>
               
-          <TextInput editable={false}> Nome</TextInput>
+          <TextInput editable={false}> { nome } </TextInput> 
           <Divider /> 
           <TextInput editable={false}> Idade</TextInput> 
           <Divider /> 
@@ -78,8 +83,9 @@ export default class Edit extends Component {
       </SafeAreaView>
 
         <View style={styles.viewbtn}>
-        <TouchableOpacity style={styles.button} >
+        <TouchableOpacity onPress={() => this.props.navigation.navigate('User', {texto: text})} style={styles.button} >
             <Text style={styles.textbtn}> Salvar </Text>
+            
         </TouchableOpacity> 
         </View>
 
@@ -105,6 +111,9 @@ export default class Edit extends Component {
   
     return data;
   }
+
+
+  
 
 
 

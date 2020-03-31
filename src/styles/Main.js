@@ -10,7 +10,8 @@ const styles = StyleSheet.create({
   },
 
   cardsContainer:{
-    justifyContent: 'center',
+    flex: 1,
+    justifyContent: 'center', 
     alignSelf: 'center',
     alignContent: 'center',
     alignItems: 'center',
@@ -24,9 +25,8 @@ const styles = StyleSheet.create({
     borderColor: '#f5f5f5',
   },
 
-  card:{
-    flex: 1, 
-    height: hp('85%'),  
+  card:{ 
+    flex: 1,   
     width: wp('93%'), 
     alignSelf: 'center',
     justifyContent: 'center',
@@ -51,7 +51,7 @@ const styles = StyleSheet.create({
   },
 
   imagem:{
-    height: 300, 
+    height: hp('60%'), 
     width: wp('100%'),
     flex: 1,
   },
@@ -65,9 +65,9 @@ const styles = StyleSheet.create({
   },
 
   buttonView:{
-    flexDirection: "row",
-    position: "relative",   
+    flexDirection: "row", 
     justifyContent: 'space-between',  
+    position: 'relative',
     marginBottom: hp('3%'),
     marginHorizontal: wp('10%'),
     },

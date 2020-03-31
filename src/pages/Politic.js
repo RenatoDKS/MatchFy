@@ -5,12 +5,7 @@ import {
   Text,
   Linking
 } from 'react-native';
-import ReactNativeSettingsPage, { 
-  NavigateRow,
-  SwitchRow, 
-  SectionRow
-} from 'react-native-settings-page';
-import {List, ListItem, Container, Content} from 'native-base';
+import {Container, Content} from 'native-base';
 import styles from '../styles/Politic';
 export default class Politic extends React.Component {
   render() {
@@ -18,7 +13,6 @@ export default class Politic extends React.Component {
       <Container>
           <Content>
             <View style={styles.view}>
-            <ReactNativeSettingsPage>
             <View style={styles.view}>
                 <Text style = {styles.text1}>{'Termos de uso e política de privacidade \n'}</Text>
                     <Text style={styles.text2}>O MatchFy é uma rede social com objetivo específico voltado para a educação e pesquisa de diferentes algoritmos de pareamento entre pessoas com interesses em comum para facilitar os relacionamentos entre elas, permitindo unificar as principais funcionalidades dos aplicativos Tinder e Happn. Os usuários da aplicação MatchFy terão acesso a um ambiente seguro onde os usuários respeitem uns aos outros para construir relacionamentos, estabelecendo diferentes conexões de romance, amizade ou profissional.</Text>
@@ -29,7 +23,6 @@ export default class Politic extends React.Component {
             </Text>
           </TouchableOpacity>
             </View> 
-            </ReactNativeSettingsPage>
            </View>
         </Content>
     </Container>

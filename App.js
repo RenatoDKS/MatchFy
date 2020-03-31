@@ -11,7 +11,8 @@ import { StyleSheet, View, YellowBox} from 'react-native';
 
 YellowBox.ignoreWarnings([
   'ViewPagerAndroid',
-  'componentWillReceiveProps'
+  'componentWillReceiveProps', 
+  'componentWillMount' 
 ]);
 
 import Root from './Root';
