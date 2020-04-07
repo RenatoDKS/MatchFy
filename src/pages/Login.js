@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { View, Text, StatusBar, TouchableOpacity, Linking, ImageBackground, BackHandler } from "react-native";
 import styles from "../styles/Login";
 import { NavigationEvents } from 'react-navigation';
-
+import axios from "axios";
 
 import {
   LoginButton,
@@ -127,18 +127,29 @@ export default class Login extends Component {
   }
  
    //Create response callback.
-   _responseInfoCallback = (error, result) => {
-    if (error) {
-      alert('Error fetching data: ' + error.toString());
-    } else { 
+  _responseInfoCallback = (error, result) => {
+
+      console.log("Login")
+
+      if (error) {
+        alert('Error fetching data: ' + error.toString());
+      } else { 
       
-      this.props.navigation.navigate('TabNav', 
-      {  
-        nome: result.name,
-        foto: result.picture.data.url,
+      result.email = "victorelioenay@hotmail.com"; // Necessita passar o email para o Backend.
+      result.idade = 20; //Necessita passar a idade para backend. 
+
+      axios.post("http://192.168.100.10:1337/v1/callback",{ data : result })
+      .then( (resp) => {
+        if(resp.data.cadastro) //Se a API responder true, o login foi autorizado.
+          this.props.navigation.navigate('TabNav', 
+            {  
+              nome: result.name,
+              foto: result.picture.data.url,
+              id: resp.data.id //Id do usuário no DB.
+            });
+      } )
+      .catch( err => console.error(err) )
       
-      }); 
-    
     }
   }  
 }

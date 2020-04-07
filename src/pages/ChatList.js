@@ -1,7 +1,12 @@
 import React, { Component } from 'react';
 import { View, FlatList, ActivityIndicator,  BackHandler } from 'react-native';
 import { ListItem, SearchBar } from 'react-native-elements';
-import Axios from "axios";
+import axios from "axios";
+
+/* 
+  A lista de chat deve ser atualizada sempre que ocorrer um match.
+  A pesquisa de usuários precisa ser consertada.
+*/
 
 export default class ChatList extends Component {
   constructor(props) {
@@ -26,38 +31,25 @@ export default class ChatList extends Component {
   } 
 
   makeRemoteRequest = () => {
-    const url = `http://10.0.2.2:1337/v1/match`; 
+
     this.setState({ loading: true });
 
-    Axios.get(url, { params : { id : 34 } })
-    .then(res => { 
-      console.log(res.data.results);
+    axios.get("http://192.168.100.10:1337/v1/match",{ params : { id : this.props.navigation.state.params.id } })
+    .then( resp => {
+      if( resp.data.list ){
+        //Tratamento para inicializar os cards com a lista recebida da API.
         this.setState({
-          data: res.data.results,
+          data: resp.data.results, //Resultados da API.
           error: null,
           loading: false,
-        }); 
-
+        });
+      } 
     })
-    .catch(error => {
+    .catch( error => {
         console.log(error);
         this.setState({ error, loading: false });
     })
-    /* fetch(url)
-      .then(res => { console.log(res); res.json()})
-      .then(res => {
-        console.log(res);
-        this.setState({
-          data: res.results,
-          error: res.error || null,
-          loading: false,
-        }); 
-        this.arrayholder = res.results;
-      })
-      .catch(error => {
-        console.log(error);
-        this.setState({ error, loading: false });
-      }); */
+  
   };
 
   renderSeparator = () => {
@@ -121,7 +113,7 @@ export default class ChatList extends Component {
               leftAvatar={item.picture}
               title={item.nome}
               subtitle={item.email}
-              onPress={() => navigation.navigate('Chat')}
+              onPress={() => navigation.navigate('Chat',{ id : this.props.navigation.state.params.id, target_id : item.id })} //Necessita passar o id do item clickado.
             />
           )}
           keyExtractor={item => item.email}
