@@ -1,34 +1,32 @@
 import React from 'react';
-import { View, Text} from 'react-native';
+import { View, Text, TouchableHighlight} from 'react-native';
 import ReactNativeSettingsPage, { SwitchRow, SectionRow} from 'react-native-settings-page';
 import Slider from 'react-native-slider';
 import RangeSlider from 'rn-range-slider';
-import {List, ListItem, Container, Content} from 'native-base';
+import {List, ListItem, Container, Content, Button} from 'native-base';
+import Axios from 'axios';
+
 
 export default class Interest extends React.Component {
+
   constructor(props) {
    super(props)
-   this.state = { idade: 60, dist: 0, idade1: 18 }
+   this.state = { idade_min: 18, dist: 0, idade_max: 60, homens: false, mulheres: false, id : this.props.navigation.state.params.id }
   } 
-  getVal(value){
+
+ /*  getVal(value){
   //console.warn(value);
   }     
+  
   getDist(value1){
     //console.warn(value1);
   }
-   buttonClickListener = () => {
+
+  buttonClickListener = () => {
     alert("Deseja realmente deletar sua conta?");
   };
-  // TODO: implement your navigationOptions
-   state = {
-    check: false,
-    switch: false,
-    switch1: false,
-    value: 40,
-    value1: 40,
-    value2: 60
-  } 
- 
+  // TODO: implement your navigationOptions */
+  
   render() {
     return (
       <Container>
@@ -39,17 +37,18 @@ export default class Interest extends React.Component {
                   <SectionRow><Text style = {{color:'black', marginLeft:16}}>{'Tenho interesse por\n'}</Text>
                     <SwitchRow 
                       text ='Homens' 
-                      _value={this.state.switch}
-                      _onValueChange={() => { this.setState({ switch: !this.state.switch }) }} />
+                      _value={this.state.homens}
+                      _onValueChange={() => { this.setState({ homens: !this.state.homens }) }} />
                       <SwitchRow 
                       text='Mulheres' 
-                      _value={this.state.switch1}
-                      _onValueChange={() => { this.setState({ switch1: !this.state.switch1 }) }} /></SectionRow>
+                      _value={this.state.mulheres}
+                      _onValueChange={() => { this.setState({ mulheres: !this.state.mulheres }) }} /></SectionRow>
                       </View>
                       <View style ={{flex: 1, backgroundColor:'white'}}>
                       <List>
                       <ListItem>
-                      <Text style = {{color:'black'}}>{'Distância máxima\n\n'}<Text style = {{color:'gray'}}>{this.state.dist} quilômetros</Text><Slider
+                      <Text style = {{color:'black'}}>{'Distância máxima\n\n'}<Text style = {{color:'gray'}}>{this.state.dist} quilômetros</Text>
+                      <Slider
                         style={{width: 320, height: 40}}
                         value = {this.state.dist}
                         step = {1}
@@ -62,15 +61,16 @@ export default class Interest extends React.Component {
                       /></Text>
                   </ListItem>
                   <ListItem>
-                    <Text style = {{color:'black'}}>{'Idade\n\n'}<Text style = {{color:'gray'}}>{this.state.idade1} a {this.state.idade} anos</Text><RangeSlider
-    style={{width: 320, height: 60}}
-    gravity={'center'}
-    min={18}
-    max={60}
-    step={1}
-    selectionColor="#7d7"
-    blankColor="#7d7"
-    onValueChanged={value => this.setState ({idade:value}), value2 => this.setState ({idade1:value2})}/>
+                    <Text style = {{color:'black'}}>{'Idade\n\n'}<Text style = {{color:'gray'}}>{this.state.idade_min} a {this.state.idade_max} anos</Text>
+                    <RangeSlider
+                      style={{width: 320, height: 60}}
+                      gravity={'center'}
+                      min={18}
+                      max={60}
+                      step={1}
+                      selectionColor="#7d7"
+                      blankColor="#7d7"
+                      onValueChanged={(min, max) => this.setState ({idade_max:max,idade_min:min})/* , value2 => this.setState ({idade1:value2}) */}/>
                       </Text>
                   </ListItem>
                   </List>
@@ -79,6 +79,23 @@ export default class Interest extends React.Component {
               </View>
       </ReactNativeSettingsPage>
       </View>
+      <TouchableHighlight //Deve-se criar um botão salvar, e assim que clicado deve mandar os interesses do usuário a API.
+        onPress={ 
+          () => {
+            console.warn(this.state);
+            let st = this.state
+            
+            Axios.post("http://192.168.100.10:1337/v1/updateInterest",{  
+              data : this.state //Dados a enviar.
+            })
+            .then( resul => console.warn(resul) )
+            .catch( err => console.warn(err) )
+          }
+        } 
+        style={{ backgroundColor : "blue", width : 60, height : 60, alignSelf:"center", borderRadius : 30}}>
+
+        <Text style={{textAlign : "center"}}>Salvar</Text>
+      </TouchableHighlight>
         </Content>
     </Container>
     )

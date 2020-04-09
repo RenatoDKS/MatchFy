@@ -3,11 +3,12 @@ import { Image, StatusBar, TouchableOpacity, Text, SafeAreaView, BackHandler, Al
 import { Container, View, DeckSwiper, Card, CardItem} from 'native-base';  
 import Icon from 'react-native-vector-icons/AntDesign'; 
 import Geolocation from '@react-native-community/geolocation';
-
-
+import axios from "axios";
 import styles from '../styles/Main';
+
 const cards = [ 
-  {
+  { 
+    id : 34,
     name: 'Monica Geller',
     sexo: 'feminino',
     idade: 20,
@@ -16,6 +17,7 @@ const cards = [
   },
  
   {
+    id : 36,
     name: 'Rachel Green',
     sexo: 'feminino',
     idade: 20,
@@ -24,6 +26,7 @@ const cards = [
   },
 
   {
+    id : 37,
     name: 'Phoebe Buffay',
     sexo: 'feminino',
     idade: 20,
@@ -31,28 +34,69 @@ const cards = [
     bio: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book."
   },
 ];
+
+var cardsAPI = [];
+var isLike = true;
+
 export default class Main extends Component {
 
   state = {
     latitude: '',
     longitude: '',
+    id: this.props.navigation.state.params.id
   };
 
   watchID = null;
 
+  like = (target_id) => {
+    axios.post("http://192.168.100.10:1337/v1/like", { data : { user_id : this.state.id, target_id : target_id }})
+    .then( resp => console.warn(resp) )//Retorna { match : true } caso tenha ocorrido um match.
+    .catch( err => console.warn(err) )
+  }
+
+  deslike = (target_id) => {
+    axios.post("http://192.168.100.10:1337/v1/deslike", { data : { user_id : this.state.id, target_id : target_id }})
+    .then( resp => console.warn(resp) )
+    .catch( err => console.warn(err) )
+  }
+
+  superLike = (target_id) => {
+    axios.post("http://192.168.100.10:1337/v1/superLike", { data : { user_id : this.state.id, target_id : target_id }})
+    .then( resp => console.warn(resp) )//Retorna { match : true } caso tenha ocorrido um match.
+    .catch( err => console.warn(err) )
+  }
+
+  setCards = () => { //Inicializa a lista de resultados retornada pelo API.
+    axios.get("http://192.168.100.10:1337/v1/pairing",{params : { id : this.state.id }})
+    .then( resp => {
+      for( let i = 0, rows = resp.data.rows; i< resp.data.rowCount; i++ ) {
+        cardsAPI.push({ id : rows[i].id, name : rows[i].nome, idade : rows[i].idade, image : rows[i].picture })
+      }
+    })
+    .catch( err => console.error(err) )
+  }
+
   componentDidMount() {
+
     Geolocation.getCurrentPosition(
       position => {
         const latitude = JSON.stringify(position.coords.latitude);
         const longitude = JSON.stringify(position.coords.longitude);
         this.setState({latitude});
         this.setState({longitude});
-        console.log(latitude);
-        console.log(longitude);
+
+        axios.put("http://192.168.100.10:1337/v1/callback",{ data : { lat : latitude, long : longitude, id : this.state.id }})//Grava as coordenadas do usuário no banco.
+        .then( resp => { 
+            this.setCards();
+        })
+        .catch( err => {
+          console.warn(err);
+          this.setCards();
+        })
         
       },
-      error => console.log('Error', JSON.stringify(error.message)),
-      {enableHighAccuracy: true, timeout: 20000, maximumAge: 1000},
+      error => console.warn('Error', JSON.stringify(error.message)),
+      {enableHighAccuracy: false, timeout: 20000, maximumAge: 1000},
     );
   }
 
@@ -73,10 +117,11 @@ export default class Main extends Component {
         
         <View style={{flex: 1}}>
           <DeckSwiper
-           looping={false}
+            looping={false}
             ref={(c) => this._deckSwiper = c}
             dataSource={cards}   
-            
+            onSwipeLeft={ (e) => this.deslike(e.id)  }
+            onSwipeRight={ (e) => this.like(e.id)  }   
             renderEmpty={() => 
               <View style={{ alignSelf: "center", marginBottom: 8000}}>
                 <Text style={styles.empty}>Acabou :( </Text>
@@ -101,15 +146,24 @@ export default class Main extends Component {
          
         <View style={styles.buttonView}>
 
-          <TouchableOpacity style={styles.button} onPress={() => this._deckSwiper._root.swipeLeft()}>
+          <TouchableOpacity style={styles.button} onPress={() => {
+            this.deslike(this._deckSwiper._root.state.selectedItem.id);
+            this._deckSwiper._root.swipeLeft()
+          }}>
             <Icon name="dislike1" size={40} color="red"/>        
           </TouchableOpacity> 
- 
-          <TouchableOpacity style={styles.button} onPress={() => this._deckSwiper._root.swipeRight()}>
+  
+          <TouchableOpacity style={styles.button} onPress={() => {
+               this.superLike(this._deckSwiper._root.state.selectedItem.id);
+               this._deckSwiper._root.swipeRight();
+            }}>
             <Icon name="heart" size={40} color="pink"/> 
           </TouchableOpacity>
- 
-          <TouchableOpacity style={styles.button} onPress={() => this._deckSwiper._root.swipeRight()}>
+  
+          <TouchableOpacity style={styles.button} onPress={() => {
+              this.like(this._deckSwiper._root.state.selectedItem.id);
+              this._deckSwiper._root.swipeRight();
+            }}>
             <Icon name="like1" size={40} color="green"/>
           </TouchableOpacity>
 

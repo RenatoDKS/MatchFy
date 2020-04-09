@@ -1,6 +1,12 @@
 import React, { Component } from 'react';
 import { View, FlatList, ActivityIndicator,  BackHandler } from 'react-native';
 import { ListItem, SearchBar } from 'react-native-elements';
+import axios from "axios";
+
+/* 
+  A lista de chat deve ser atualizada sempre que ocorrer um match.
+  A pesquisa de usuários precisa ser consertada.
+*/
 
 export default class ChatList extends Component {
   constructor(props) {
@@ -16,6 +22,7 @@ export default class ChatList extends Component {
   }
 
   componentDidMount() {
+    console.log("ChatList");
     this.makeRemoteRequest();
   }
 
@@ -24,24 +31,25 @@ export default class ChatList extends Component {
   } 
 
   makeRemoteRequest = () => {
-    const url = `https://randomuser.me/api/?results=10`; 
+
     this.setState({ loading: true });
 
-    fetch(url)
-      .then(res => { console.log(res); res.json()})
-      .then(res => {
-        console.log(res);
+    axios.get("http://192.168.100.10:1337/v1/match",{ params : { id : this.props.navigation.state.params.id } })
+    .then( resp => {
+      if( resp.data.list ){
+        //Tratamento para inicializar os cards com a lista recebida da API.
         this.setState({
-          data: res.results,
-          error: res.error || null,
+          data: resp.data.results, //Resultados da API.
+          error: null,
           loading: false,
-        }); 
-        this.arrayholder = res.results;
-      })
-      .catch(error => {
+        });
+      } 
+    })
+    .catch( error => {
         console.log(error);
         this.setState({ error, loading: false });
-      });
+    })
+  
   };
 
   renderSeparator = () => {
@@ -49,9 +57,9 @@ export default class ChatList extends Component {
       <View
         style={{
           height: 1,
-          width: '86%',
-          backgroundColor: '#CED0CE',
-          marginLeft: '14%',
+          width: '70%',
+          backgroundColor: '#000',
+          marginLeft: '18%'
         }}
       />
     );
@@ -63,7 +71,7 @@ export default class ChatList extends Component {
     });
 
     const newData = this.arrayholder.filter(item => {
-      const itemData = `${item.name.title.toUpperCase()} ${item.name.first.toUpperCase()} ${item.name.last.toUpperCase()}`;
+      const itemData = `${item.nome.toUpperCase()}`;
       const textData = text.toUpperCase();
 
       return itemData.indexOf(textData) > -1;
@@ -102,10 +110,10 @@ export default class ChatList extends Component {
           data={this.state.data}
           renderItem={({ item }) => (
             <ListItem
-              leftAvatar={{ source: { uri: item.picture.thumbnail } }}
-              title={`${item.name.first} ${item.name.last}`}
+              leftAvatar={item.picture}
+              title={item.nome}
               subtitle={item.email}
-              onPress={() => navigation.navigate('Chat')}
+              onPress={() => navigation.navigate('Chat',{ id : this.props.navigation.state.params.id, target_id : item.id })} //Necessita passar o id do item clickado.
             />
           )}
           keyExtractor={item => item.email}

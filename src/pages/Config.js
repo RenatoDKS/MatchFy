@@ -16,18 +16,11 @@ onLogout = () => {
   this.props.navigation.navigate('Login')
 };
 
-
-
-
-
 export default class Configuration extends Component {
-
 
   componentWillMount() {
     BackHandler.addEventListener('hardwareBackPress', () => { return true; });
   }
-
-  
 
   render() {
     const { navigation } = this.props;
@@ -42,6 +35,7 @@ export default class Configuration extends Component {
             <ListItem avatar style={styles.listItem} onPress={() => this.props.navigation.navigate('Edit', {
               nome: name,
               foto: photo,
+              id : this.props.navigation.state.params.id //Id do usuário.
             })}>   
               <Left> 
                 <Icon name="user" size={22} color="black" style={{marginTop: 20}} />
@@ -52,7 +46,7 @@ export default class Configuration extends Component {
               </Body>    
             </ListItem>
             
-            <ListItem avatar style={styles.listItem} onPress={() => navigation.navigate('Interest')}>
+            <ListItem avatar style={styles.listItem} onPress={() => navigation.navigate('Interest',{ id : this.props.navigation.state.params.id })}>
               <Left>
               <Button transparent >
                 <Icon active name="heart" size={22} style={{marginTop: 20}} />

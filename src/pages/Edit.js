@@ -3,7 +3,19 @@ import { Text, View, TouchableOpacity, Image, TextInput, StatusBar, ScrollView, 
 import Icon from 'react-native-vector-icons/FontAwesome';
 import styles from '../styles/Edit';
 import { Divider } from 'react-native-elements';
+import Axios from "axios";
 
+/* 
+  Para adicionar uma imagem do usuário a API, precisa-se fazer um upload da imagem 
+  para a rota POST /v1/uploadFile com a key/identificador "imagens" e com o "id" do usuário no corpo da requisição. 
+  Podem ser enviadas mais de uma imagem por vez.
+
+  Para pegar as imagens de volta basta fazer um GET /v1/getFiles passando o "id" do usuário como parâmetro. Isso vai retorna
+  uma json com vários nomes de arquivos, basta fazer um POST /v1/downloadFile passando "nameFile" com o nome do arquivo no corpo da requisição.
+  Infelizmente para baixar as imagens, deve ser feito um POST por vez para cada nome de arquivo.
+
+  Para pegar a bio do usuário basta fazer um POST /v1/getBio com o "id" do usuário no corpo da requisição.
+*/
 
 export default class Edit extends Component {  
 
@@ -13,17 +25,12 @@ export default class Edit extends Component {
       { id: "01", name: "Agente Tom Mate" },
       { id: "02", name: "Doc Hudson" },
       { id: "03", name: "Cruz Ramirez" },
-
-
     ],
-    
   };
 
   static navigationOptions = {
     title: 'Edição de Perfil',
   };
-
-
 
   render() {
     const columns = 2;  
@@ -83,7 +90,12 @@ export default class Edit extends Component {
       </SafeAreaView>
 
         <View style={styles.viewbtn}>
-        <TouchableOpacity onPress={() => this.props.navigation.navigate('User', {texto: text})} style={styles.button} >
+        <TouchableOpacity onPress={() => {
+            Axios.post("http://192.168.100.10:1337/v1/updateBio",{ id : this.props.navigation.state.params.id, bio : text }) //Envia a Bio para a API.
+            .then( res => this.props.navigation.navigate('User', {texto: text}) ) 
+            .catch( err => console.warn(err) )
+          }} 
+          style={styles.button} >
             <Text style={styles.textbtn}> Salvar </Text>
             
         </TouchableOpacity> 
