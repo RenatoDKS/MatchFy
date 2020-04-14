@@ -1,8 +1,15 @@
-import React, { Component } from "react";
-import { View, Text, StatusBar, TouchableOpacity, Linking, ImageBackground, BackHandler } from "react-native";
-import styles from "../styles/Login";
-import { NavigationEvents } from 'react-navigation';
-import axios from "axios";
+import React, { Component } from 'react';
+import {
+  View,
+  Text,
+  StatusBar,
+  Linking,
+  ImageBackground,
+  BackHandler,
+  Alert,
+} from 'react-native';
+import styles from '../styles/Login';
+import axios from 'axios';
 
 import {
   LoginButton,
@@ -11,146 +18,147 @@ import {
   GraphRequestManager,
 } from 'react-native-fbsdk';
 
-
 export default class Login extends Component {
-
   constructor() {
     super();
     //Setting the state for the data after login
     this.state = {
-      user_name: '', 
+      user_name: '',
       token: '',
       profile_pic: '',
-      teste: ''
+      teste: '',
     };
   }
- 
+
   get_Response_Info = (error, result) => {
     if (error) {
       //Alert for the Error
       Alert.alert('Error fetching data: ' + error.toString());
     } else {
       //response alert
-      alert(JSON.stringify(result)); 
+      alert(JSON.stringify(result));
       this.setState({ user_name: result.name });
       this.setState({ token: result.id });
       this.setState({ profile_pic: result.picture.data.url });
-     // this.props.navigation.navigate('TabNav', {nome: result.name, tok: result.id, foto: result.picture.data.url  })
+      // this.props.navigation.navigate('TabNav', {nome: result.name, tok: result.id, foto: result.picture.data.url  })
     }
   };
 
-
-
   onLogout = () => {
     //Clear the state after logout
-    this.props.navigation.navigate('Login', {user_name: null, token: null, profile_pic: null})
-    BackHandler.exitApp()  
+    this.props.navigation.navigate('Login', {
+      user_name: null,
+      token: null,
+      profile_pic: null,
+    });
+    BackHandler.exitApp();
   };
 
   static navigationOptions = ({ navigation }) => {
     return {
-      header:null  
- 
+      header: null,
     };
   };
- 
 
   state = {
-    hasInitialized: false
+    hasInitialized: false,
   };
 
-  componentDidMount(){
+  componentDidMount() {
     const { navigation } = this.props;
-        AccessToken.getCurrentAccessToken().then(
-          (data) => {
-            if(data != null){
-            const infoRequest = new GraphRequest(
-              '/me?fields=name,picture.type(large)', 
-              null, 
-              this._responseInfoCallback
-            );
-           
-            // Start the graph request.
-            new GraphRequestManager().addRequest(infoRequest).start();
-            }
-          }
-        )
-      }
+    AccessToken.getCurrentAccessToken().then(data => {
+      if (data != null) {
+        const infoRequest = new GraphRequest(
+          '/me?fields=name,picture.width(1000).height(1000)',
+          null,
+          this._responseInfoCallback,
+        );
 
-      componentWillMount() {
-        BackHandler.addEventListener('hardwareBackPress', () => { return true; });
+        // Start the graph request.
+        new GraphRequestManager().addRequest(infoRequest).start();
       }
+    });
+  }
+
+  componentWillMount() {
+    BackHandler.addEventListener('hardwareBackPress', () => {
+      return true;
+    });
+  }
 
   render() {
-    
     return (
-    <ImageBackground source={require('../assets/LogoTxt.png')} style={{ flex: 1 }}>
-       <StatusBar backgroundColor={'white'}></StatusBar> 
-      
-      <View style={styles.view}>   
+      <ImageBackground
+        source={require('../assets/LogoTxt.png')}
+        style={{ flex: 1 }}
+      >
+        <StatusBar backgroundColor={'white'} />
 
-      <LoginButton
-       style={styles.button}
-          publishPermissions={["publish_actions"]}
-          onLoginFinished={
-            (error, result) => {
+        <View style={styles.view}>
+          <LoginButton
+            style={styles.button}
+            publishPermissions={['publish_actions']}
+            onLoginFinished={(error, result) => {
               if (error) {
-                alert("login has error: " + result.error);
+                alert('login has error: ' + result.error);
               } else if (result.isCancelled) {
-                alert("login is cancelled.");
+                alert('login is cancelled.');
               } else {
-                
-                AccessToken.getCurrentAccessToken().then(
-                  (data) => {
-                    const infoRequest = new GraphRequest(
-                      '/me?fields=name,picture.type(large)', 
-                      null, 
-                      //this.get_Response_Info,
-                      this._responseInfoCallback,
-                      
-                    );
-                   
-                    // Start the graph request.
-                    new GraphRequestManager().addRequest(infoRequest).start();
-                  }
-                )
-                 
-              }
-            }
-          }
-          onLogoutFinished={this.onLogout}/>
+                AccessToken.getCurrentAccessToken().then(data => {
+                  const infoRequest = new GraphRequest(
+                    '/me?fields=name,picture.type(large)',
+                    null,
+                    //this.get_Response_Info,
+                    this._responseInfoCallback,
+                  );
 
-        <Text style={styles.textPolitic} onPress={() => Linking.openURL('http://ricardoramosdeoliveira.com.br/politica/politica_privacidade.html')}>Politica de privacidade</Text>
-      </View>
-    </ImageBackground>
+                  // Start the graph request.
+                  new GraphRequestManager().addRequest(infoRequest).start();
+                });
+              }
+            }}
+            onLogoutFinished={this.onLogout}
+          />
+
+          <Text
+            style={styles.textPolitic}
+            onPress={() =>
+              Linking.openURL(
+                'http://ricardoramosdeoliveira.com.br/politica/politica_privacidade.html',
+              )
+            }
+          >
+            Politica de privacidade
+          </Text>
+        </View>
+      </ImageBackground>
     );
   }
- 
-   //Create response callback.
+
+  //Create response callback.
   _responseInfoCallback = (error, result) => {
+    console.log('Login');
 
-      console.log("Login")
+    if (error) {
+      alert('Error fetching data: ' + error.toString());
+    } else {
+      result.email = 'victorelioenay@hotmail.com'; // Necessita passar o email para o Backend.
+      result.idade = 20; //Necessita passar a idade para backend.
 
-      if (error) {
-        alert('Error fetching data: ' + error.toString());
-      } else { 
-      
-      result.email = "victorelioenay@hotmail.com"; // Necessita passar o email para o Backend.
-      result.idade = 20; //Necessita passar a idade para backend. 
-
-      axios.post("http://192.168.100.10:1337/v1/callback",{ data : result })
-      .then( (resp) => {
-        if(resp.data.cadastro) //Se a API responder true, o login foi autorizado.
-          this.props.navigation.navigate('TabNav', 
-            {  
+      axios
+        .post('http://192.168.0.103:1337/v1/callback', { data: result })
+        .then(resp => {
+          console.warn(resp);
+          if (resp.data.cadastro) {
+            //Se a API responder true, o login foi autorizado.
+            this.props.navigation.navigate('TabNav', {
               nome: result.name,
               foto: result.picture.data.url,
-              id: resp.data.id //Id do usuário no DB.
+              id: resp.data.id, //Id do usuário no DB.
             });
-      } )
-      .catch( err => console.error(err) )
-      
+          }
+        })
+        .catch(err => console.error(err));
     }
-  }  
+  };
 }
-

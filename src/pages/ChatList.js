@@ -32,9 +32,9 @@ export default class ChatList extends Component {
 
   makeRemoteRequest = () => {
 
-    this.setState({ loading: true });
+    this.setState({ loading: true }); 
 
-    axios.get("http://192.168.100.10:1337/v1/match",{ params : { id : this.props.navigation.state.params.id } })
+    axios.get("http://192.168.0.103:1337/v1/match",{ params : { id : this.props.navigation.state.params.id } })
     .then( resp => {
       if( resp.data.list ){
         //Tratamento para inicializar os cards com a lista recebida da API.
